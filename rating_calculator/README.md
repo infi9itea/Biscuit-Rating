@@ -22,19 +22,21 @@ contest without a score or a date is an error.
 
 ## SHONG
 
-At every point in the history, older contests decay:
+At every point in the history, each contest the institution took part in gets
+a weight from its credit and its age:
 
 ```text
-decay = (1 - time_decay_rate)^(days since contest / time_decay_pulse_days)
+weight = credit * (1 - time_decay_rate)^(days since contest / time_decay_pulse_days)
 ```
 
-The exponent is fractional, so the decay is a smooth curve. Scores are then
-combined with a credit-weighted root mean square, skipping contests the
-institution did not take part in:
+Scores are then combined with a weighted root mean square:
 
 ```text
-sqrt(sum(credit * (score * decay)^2) / sum(credit * decay^2))
+sqrt(sum(weight * score^2) / sum(weight))
 ```
 
-The credit is a plain weight: a contest with credit 3 counts three times as
-much as one with credit 1.
+Both parts are plain weights. A contest with credit 3 counts three times as
+much as one with credit 1. With `time_decay_rate` 0.2 and
+`time_decay_pulse_days` 30, a contest loses 20% of its weight every 30 days,
+so its weight halves after about 93 days. The exponent is fractional, so the
+decay is a smooth curve.

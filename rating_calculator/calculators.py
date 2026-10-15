@@ -28,15 +28,15 @@ class ShongRatingCalculator(RatingCalculator):
         dates: dict[str, date],
         latest_contest: str,
     ) -> float | None:
-        # Credit weighs each contest linearly: a contest with credit 3 counts
-        # three times as much. The time decay applies inside the square.
+        # Credit and time decay are both plain weights: a contest with credit 3
+        # counts three times as much, and one with half its weight left half as much.
         weighted_squares = 0.0
         total_weight = 0.0
         for contest, score in scores.items():
             periods = (dates[latest_contest] - dates[contest]).days / self.time_decay_pulse_days
-            decay = (1 - self.time_decay_rate) ** periods
-            weighted_squares += credits[contest] * (score * decay) ** 2
-            total_weight += credits[contest] * decay ** 2
+            weight = credits[contest] * (1 - self.time_decay_rate) ** periods
+            weighted_squares += weight * score ** 2
+            total_weight += weight
         return math.sqrt(weighted_squares / total_weight) if total_weight else None
 
 
