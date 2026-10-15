@@ -71,7 +71,7 @@ iupc check-institutions --contest "IUT 2026"
 - **`--html`:** pass every page of a multi-page standings, in order.
 - **`--parser`:** `TOPH` or `BAPS`.
 - **`--credit`:** weights the contest in the ratings. The default is `1`, and
-  ICPC regionals have used `1.75`.
+  ICPC regionals use `3`, so they count three times as much.
 
 `check-institutions` lists institution names in the standings that the
 database does not know. Teams with such names are left out of the ratings.
@@ -156,7 +156,7 @@ This copies the HTML into `parser/input/contest_files/`, adds the contest to
 `parser/input/contests.json`, and gives it a credit in
 `rating_calculator/input/credits.json`. For multiple pages, list them all
 after `--html`, in order. Use credit `1` for a normal IUPC; ICPC regionals
-have used `1.75`.
+use `3`, so they count three times as much.
 
 **4. Regenerate the ratings:**
 

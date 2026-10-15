@@ -22,10 +22,10 @@ contest without a score or a date is an error.
 
 ## SHONG
 
-At every point in the history, older contests' credits decay:
+At every point in the history, older contests decay:
 
 ```text
-effective_credit = credit * (1 - time_decay_rate)^(days since contest / time_decay_pulse_days)
+decay = (1 - time_decay_rate)^(days since contest / time_decay_pulse_days)
 ```
 
 The exponent is fractional, so the decay is a smooth curve. Scores are then
@@ -33,5 +33,8 @@ combined with a credit-weighted root mean square, skipping contests the
 institution did not take part in:
 
 ```text
-sqrt(sum((score * effective_credit)^2) / sum(effective_credit^2))
+sqrt(sum(credit * (score * decay)^2) / sum(credit * decay^2))
 ```
+
+The credit is a plain weight: a contest with credit 3 counts three times as
+much as one with credit 1.

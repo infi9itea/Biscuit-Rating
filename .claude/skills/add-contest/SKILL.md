@@ -24,8 +24,8 @@ You need:
   pages mention `toph`; BAPS pages link to `bapsoj.org`
   (`grep -ci 'toph\|bapsoj' file.html`). Ask the
   user only if the page is ambiguous.
-- **Credit**: `1` unless the user says otherwise. Earlier ICPC regionals used
-  `1.75`, so for an ICPC regional suggest `1.75` and confirm.
+- **Credit**: `1` unless the user says otherwise. ICPC regionals use
+  `3`, so for an ICPC regional suggest `3` and confirm.
 
 Ask the user for anything you cannot infer, in a single question. Confirm the
 details before writing anything.
