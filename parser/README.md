@@ -1,46 +1,32 @@
-# Parser Module
+# Parser
 
-## Flow
+Turns saved standings HTML into contests and saves them with the `contests`
+module, which owns the contest format.
 
 ```text
-input/contest_files + input/contests.json + input/options.json
--> selected Parser implementation
--> output contest database
+input/contests.json + input/options.json + input/contest_files/*.html
+-> output/contests/<contest-id>.json + output/manifest.json
 ```
 
 ## Files
 
-- `model.py`: abstract `Parser` interface
-- `__init__.py`: package exports
-- `__main__.py`: enables `python -m parser`
-- `records.py`: `Team` and `ParsedContest` records
-- `service.py`: hashes sources, selects parsers, and updates changed contests
-- `cli.py`: command-line entry point
-- `implementations/__init__.py`: parser registry
-- `implementations/common.py`: shared HTML row and warning helpers
-- `implementations/baps/__init__.py`: BAPS implementation export
-- `implementations/baps/parser.py`: BAPS parser implementation
-- `implementations/baps/README.md`: BAPS parser documentation
-- `implementations/toph/__init__.py`: Toph implementation export
-- `implementations/toph/parser.py`: auto-detecting Toph parser implementation
-- `implementations/toph/README.md`: Toph parser documentation
-- `input/contests.json`: contest name, date, filenames, and parser
-- `input/options.json`: `fail_on_warnings` behavior
+- `parsers.py`: the `Parser` interface, the `BAPS` and `TOPH` parsers, and the
+  parser registry
+- `service.py`: `run()` parses the contests whose sources changed
+- `input/contests.json`: each contest's name, date, standings files, and parser
+- `input/options.json`: `fail_on_warnings` stops on any unparseable row
 - `input/contest_files/`: saved standings HTML
+- `output/contests/`: parsed contests
 - `output/manifest.json`: source hashes, parser versions, and parse statistics
-- `output/contests/`: one parsed JSON document per contest
 
 ## Parsers
 
-- `BAPS`: parses BAPS standings
-- `TOPH`: detects and parses supported older and current Toph layouts
+- `BAPS`: BAPS standings (pages link to `bapsoj.org`)
+- `TOPH`: Toph standings, detecting the older and current layouts per row
 
-Every parseable row is retained. Unofficial ranks such as `*` are stored as `null`.
+Every parseable row is kept. Unofficial ranks such as `*` are stored as `null`.
+A contest is reparsed only when its files, parser, parser `version`, or date
+change. Bump a parser's `version` after changing its output.
 
-## Command
-
-```bash
-iupc-parser
-iupc-parser --force
-iupc-parser --input path/to/input --output path/to/output
-```
+To add a parser, subclass `Parser`, implement `parse_row()`, and register it
+in `PARSERS`.

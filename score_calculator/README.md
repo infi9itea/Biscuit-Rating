@@ -1,31 +1,28 @@
-# Score Calculator Module
+# Score Calculator
 
-## Flow
+Combines the performances of each institution's teams into one score per
+contest.
 
 ```text
-performance_calculator/output/performances.csv
-+ parser/output/contests + input/options.json + institution_finder
--> selected ScoreCalculator
+performance_calculator/output/performances.csv + contests (dates) + input/options.json
 -> output/score_history.csv + output/score_rank_history.csv
 ```
 
-This module calculates score as a function of an institution and contest.
-It reads the contest list and dates from parser outputs. Missing contest
-performances cause an error. Team performance rows retain contest ranking
-order, allowing calculators to select the top teams.
+Columns are contests, newest first. Rows are institutions that have at least
+one score, best in the newest contest first.
 
 ## Files
 
-- `model.py`: abstract `ScoreCalculator` interface
-- `service.py`: performance loading, canonical-name resolution, and workflow
-- `cli.py`: command-line entry point
-- `implementations/`: score calculator implementations
-- `input/options.json`: selected calculator and parameters
-- `output/score_history.csv`: institution scores in selected contests
-- `output/score_rank_history.csv`: institution score ranks in selected contests
+- `calculators.py`: the `ScoreCalculator` interface, implementations, and
+  registry
+- `service.py`: `run()`
+- `input/options.json`: selected calculator and its parameters
 
-## Command
+## SHONG
 
-```bash
-iupc-score-calculator
+Takes the institution's best `institution_team_limit` teams and combines their
+performances with a power mean:
+
+```text
+(mean(performance^rating_degree))^(1 / rating_degree)
 ```

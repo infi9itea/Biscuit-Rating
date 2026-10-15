@@ -1,0 +1,18 @@
+{
+  "parser": {
+    "inputs": "e9ec14487b26432b4532df511e257d6c40ef7e94b5b22ebd2b2c123981fa672e",
+    "outputs": "b2dab28d114cbd4cf7a34dca037db205f0d5581820a201f85bd37da0168aea31"
+  },
+  "performance_calculator": {
+    "inputs": "f81c47dfc97b6a8d16541a53661cdaf56d1c437df941dc6fbd2acc9ec9b20137",
+    "outputs": "1a4b015676dce22d367739daed7ffcbaca85e5130915100ee4bd14237b0ad75c"
+  },
+  "rating_calculator": {
+    "inputs": "b37f0233529a9547d7a8ff85f2818a9acc0e71edba31d76f9d17887b955d5c35",
+    "outputs": "8700da2ea2793e1032c9e795f1c21ab6ccd7f8dcf831709c4efe9cbfe7456ba3"
+  },
+  "score_calculator": {
+    "inputs": "26f9fc78c5db6fc804fb8b90dd8827d4061965bba32d32a6c24e60230df141e0",
+    "outputs": "219389878e3fd017f8a43b9d93bca74ea3b3dc328f4e0183a2d34bf68c0d2159"
+  }
+}

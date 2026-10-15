@@ -1,57 +1,68 @@
-# Slot Distributor Module
+# Slot Distributor
 
-## Flow
+Allocates a contest's slots among the registered institutions.
 
 ```text
-rating_calculator/output/latest_ratings.csv + input/registered.txt + input/options.json
--> selected SlotDistributor implementation
--> output/slots.xlsx
+input/registered.csv + input/options.json
++ rating_calculator/output/latest_ratings.csv
++ contests (participation history) + institution_finder
+-> output/slots.xlsx + output/slots.csv + output/waiting_list.csv
 ```
 
-Registered institution names are first checked directly against
-`latest_ratings.csv`.
-If direct matching fails, the institution finder resolves alternate names.
-A name that resolves to a known institution but has no rating yet is kept with
-a NULL rating (it never participated in an IUPC). Only names that do not match
-any institution in the database produce `output/missing.csv` with fuzzy
-suggestions and then stop execution, so they can be triaged as typos or added
-to the institution database.
+## Inputs
 
-The files under `input/example/` only document the required formats. The
-distributor rejects that directory. It requires real `input/registered.txt`
-and `input/options.json` files and stops before touching outputs when either
-file is missing or the registered-institution list is empty.
+`input/` is git-ignored, so registrations are never committed. Copy the format
+from `input/example/`, which the distributor refuses to run on.
+
+`registered.csv` lists each institution and the most slots it registered for.
+Quote names that contain commas.
+
+```csv
+Institution,Max Slots
+UNIVERSITY OF DHAKA,5
+"BEGUM ROKEYA UNIVERSITY, RANGPUR",2
+```
+
+`options.json` selects the distributor and its parameters (see below).
+
+Names are resolved through the institution finder, so alternate names work.
+The distributor stops and writes `output/missing.csv` (each unknown name with
+its best match) if a name is unknown. It also stops if two rows resolve to the
+same institution, or a `Max Slots` value is not a positive whole number.
 
 ## Files
 
-- `model.py`: abstract `SlotDistributor` interface
-- `__init__.py`: package exports
-- `__main__.py`: enables `python -m slot_distributor`
-- `service.py`: registered-name validation, fuzzy report, and workflow
-- `exporter.py`: Excel workbook writer
-- `cli.py`: command-line entry point
-- `implementations/__init__.py`: distributor registry
-- `implementations/priority/__init__.py`: priority implementation export
-- `implementations/priority/distributor.py`: priority distributor implementation
-- `implementations/priority/README.md`: priority distributor documentation
-- `input/example/registered.txt`: non-executable registered-list format reference
-- `input/example/options.json`: non-executable options format reference
-- `input/registered.txt`: registered institutions
-- `input/options.json`: distributor and parameters
-- `../institution_finder/data/institutions.json`: canonical and alternate names
-- `output/slots.xlsx`: workbook with a "Read Me" guide, slot allocation,
-  waiting list, and ratings sheets
-- `output/missing.csv`: missing-name report generated on failure
+- `distributors.py`: the `SlotDistributor` interface, the `PRIORITY`
+  distributor, and the registry
+- `service.py`: `run()` plus registration and participation-history helpers
+- `exporter.py`: the Excel workbook (Read Me, Slots, Waiting List, and Ratings
+  sheets)
 
-## Command
+## PRIORITY
 
-```bash
-iupc-slot-distributor
-iupc-slot-distributor \
-  --input path/to/input \
-  --ratings path/to/rating-output \
-  --output path/to/output
+Each slot goes to the institution with the highest priority for its next slot:
+
+```text
+first slot:  priority = rating + absence_bonus * min(missed_contests, max_missed_contests)
+later slots: priority = rating / next slot number
 ```
 
-The path passed to `--input` must contain actual inputs and cannot be an
-`example` directory.
+`missed_contests` is how many of the latest parsed contests in a row the
+institution did not take part in. The bonus helps an institution get back in;
+later slots depend only on its rating. A never-rated institution has rating
+`0` and has missed every contest, so it needs no special handling.
+
+Ties go to the institution holding fewer slots. No institution gets more than
+its `Max Slots`, including waiting-list entries.
+
+1. The `min_unique` institutions with the highest first-slot priority are each
+   guaranteed a slot.
+2. The remaining slots follow priority.
+3. The waiting list continues the same sequence, but institutions with no slot
+   come first. If organizers add `k` slots, the first `k` entries get them.
+
+Parameters: `total_slots`, `waiting_list_size`, `min_unique`,
+`absence_bonus` (default `200`), and `max_missed_contests` (default `5`).
+
+In the workbook, organizers can add Reserved Slots by hand, with a reason.
+Total Slots updates automatically.

@@ -1,26 +1,28 @@
-# Performance Calculator Module
+# Performance Calculator
 
-## Flow
+Gives every team in every parsed contest a performance and resolves its
+institution to the canonical name.
 
 ```text
-parser/output/contests + input/options.json + institution_finder
--> selected PerformanceCalculator
--> output/performances.csv
+contests + input/options.json + institution_finder
+-> output/performances.csv (Contest, Team, Institution, Performance)
 ```
 
-This module calculates performance as a function of a team and contest. It loads every parsed contest and resolves each raw institution name through the institution finder. Every team is exported; teams without a numeric rank have an empty performance.
+Rows keep the contest ranking order. Teams without a numeric rank have an empty
+performance, and teams whose institution does not resolve have an empty
+institution.
 
 ## Files
 
-- `model.py`: abstract `PerformanceCalculator` interface
-- `service.py`: contest loading, canonical-name resolution, and workflow
-- `cli.py`: command-line entry point
-- `implementations/`: performance calculator implementations
-- `input/options.json`: selected calculator and parameters
-- `output/performances.csv`: contest, team, canonical institution, and performance
+- `calculators.py`: the `PerformanceCalculator` interface, implementations, and
+  registry
+- `service.py`: `run()`
+- `input/options.json`: selected calculator and its parameters
 
-## Command
+## SHONG
 
-```bash
-iupc-performance-calculator
+For rank `r`, solved count `s`, and the contest's maximum solved count `m`:
+
+```text
+maximum_team_rating * (1 - rank_decay_rate)^(r - 1) * (s / m)^solved_ratio_exponent
 ```

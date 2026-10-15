@@ -1,33 +1,37 @@
-# Rating Calculator Module
+# Rating Calculator
 
-## Flow
+Combines each institution's contest scores into a rating after every credited
+contest.
 
 ```text
-score_calculator/output/score_history.csv
-+ parser/output/contests + input/credits.json + input/options.json + institution_finder
--> selected RatingCalculator
+score_calculator/output/score_history.csv + contests (dates)
++ input/credits.json + input/options.json
 -> output/latest_ratings.csv + output/ratings_history.csv + output/rating_rank_history.csv
 ```
 
-This module calculates rating as a function of an institution. Credits in
-`input/credits.json` select contests and control their influence. Contest
-dates are read from parser outputs. Missing selected contest metadata or
-scores cause an error.
+`input/credits.json` selects the contests and sets their weight. A credited
+contest without a score or a date is an error.
 
 ## Files
 
-- `model.py`: abstract `RatingCalculator` interface
-- `service.py`: score loading, canonical-name resolution, and workflow
-- `cli.py`: command-line entry point
-- `implementations/`: rating calculator implementations
-- `input/credits.json`: selected contests and credits
-- `input/options.json`: selected calculator and parameters
-- `output/latest_ratings.csv`: latest institution ratings
-- `output/ratings_history.csv`: institution rating after each contest
-- `output/rating_rank_history.csv`: institution rating rank after each contest
+- `calculators.py`: the `RatingCalculator` interface, implementations, and
+  registry
+- `service.py`: `run()`
+- `input/credits.json`: contest credits
+- `input/options.json`: selected calculator and its parameters
 
-## Command
+## SHONG
 
-```bash
-iupc-rating-calculator
+At every point in the history, older contests' credits decay:
+
+```text
+effective_credit = credit * (1 - time_decay_rate)^(days since contest / time_decay_pulse_days)
+```
+
+The exponent is fractional, so the decay is a smooth curve. Scores are then
+combined with a credit-weighted root mean square, skipping contests the
+institution did not take part in:
+
+```text
+sqrt(sum((score * effective_credit)^2) / sum(effective_credit^2))
 ```
