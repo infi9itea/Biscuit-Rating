@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-10-16T14:32:20+00:00",
+  "fetched_at": "2026-10-16T14:49:50+00:00",
   "missing": [],
   "users": {
     "-..-": {
@@ -3356,6 +3356,19 @@
       "rating": 981,
       "titlePhoto": "https://userpic.codeforces.org/no-title.jpg"
     },
+    "bitcraze": {
+      "avatar": "https://userpic.codeforces.org/6045746/avatar/caf668d4d78ef554.jpg",
+      "country": null,
+      "firstName": null,
+      "handle": "BitCraze",
+      "lastName": null,
+      "maxRank": "newbie",
+      "maxRating": 909,
+      "organization": null,
+      "rank": "newbie",
+      "rating": 909,
+      "titlePhoto": "https://userpic.codeforces.org/6045746/title/a5966cd9bc019499.jpg"
+    },
     "bitwisebrain_": {
       "avatar": "https://userpic.codeforces.org/3936287/avatar/ebac7f49c883bbb.jpg",
       "country": "Bangladesh",
@@ -5293,6 +5306,19 @@
       "rating": 1841,
       "titlePhoto": "https://userpic.codeforces.org/3380936/title/59ec720592c6881.jpg"
     },
+    "foot_ball": {
+      "avatar": "https://userpic.codeforces.org/2661566/avatar/acea810233062ce.jpg",
+      "country": "Bangladesh",
+      "firstName": "Rahinur",
+      "handle": "Foot_Ball",
+      "lastName": "Bin Naushad",
+      "maxRank": "newbie",
+      "maxRating": 1097,
+      "organization": "Islamic University of Technology",
+      "rank": "newbie",
+      "rating": 942,
+      "titlePhoto": "https://userpic.codeforces.org/2661566/title/d9f01f583820bad.jpg"
+    },
     "foyziasultana06c": {
       "avatar": "https://userpic.codeforces.org/4410386/avatar/dbcee0045004a246.jpg",
       "country": null,
@@ -5318,6 +5344,19 @@
       "rank": "candidate master",
       "rating": 1975,
       "titlePhoto": "https://userpic.codeforces.org/862088/title/2f3404a7911d2c7a.jpg"
+    },
+    "fuad_01123": {
+      "avatar": "https://userpic.codeforces.org/3368655/avatar/1a8a4121643cb8db.jpg",
+      "country": "Bangladesh",
+      "firstName": "Fuad",
+      "handle": "fuad_01123",
+      "lastName": "Bin Sattar",
+      "maxRank": "newbie",
+      "maxRating": 1037,
+      "organization": "Islamic University of Technology",
+      "rank": "newbie",
+      "rating": 1037,
+      "titlePhoto": "https://userpic.codeforces.org/3368655/title/7bdda5338a2eee14.jpg"
     },
     "fuad_hasan43": {
       "avatar": "https://userpic.codeforces.org/3880696/avatar/7fe4cda1ac5dd8b4.jpg",
@@ -7425,6 +7464,19 @@
       "rating": 1877,
       "titlePhoto": "https://userpic.codeforces.org/1383672/title/cfdbefe13aa69414.jpg"
     },
+    "letssee_ac": {
+      "avatar": "https://userpic.codeforces.org/3975158/avatar/b360db67e791a3ee.jpg",
+      "country": null,
+      "firstName": null,
+      "handle": "letssee_ac",
+      "lastName": null,
+      "maxRank": "newbie",
+      "maxRating": 1191,
+      "organization": "Islamic University of Technology",
+      "rank": "newbie",
+      "rating": 1065,
+      "titlePhoto": "https://userpic.codeforces.org/3975158/title/e5568041a008eca3.jpg"
+    },
     "likhon_mandal23": {
       "avatar": "https://userpic.codeforces.org/3458738/avatar/1be1ce9ea4edd5ae.jpg",
       "country": "Bangladesh",
@@ -7619,6 +7671,19 @@
       "rank": "specialist",
       "rating": 1505,
       "titlePhoto": "https://userpic.codeforces.org/2708315/title/8d8003a7f026709b.jpg"
+    },
+    "maddie_stdio.h": {
+      "avatar": "https://userpic.codeforces.org/5308107/avatar/f06b0e7955b88969.jpg",
+      "country": "Bangladesh",
+      "firstName": "Ahnaf",
+      "handle": "maddie_stdio.h",
+      "lastName": "Abik",
+      "maxRank": "newbie",
+      "maxRating": 873,
+      "organization": "Islamic University of Technology",
+      "rank": "newbie",
+      "rating": 873,
+      "titlePhoto": "https://userpic.codeforces.org/5308107/title/e9f96476ce4405d3.jpg"
     },
     "maha_d_rahman": {
       "avatar": "https://userpic.codeforces.org/3403827/avatar/83fcfafd405e506b.jpg",
@@ -10415,6 +10480,19 @@
       "rating": 1074,
       "titlePhoto": "https://userpic.codeforces.org/3905433/title/131b7b75eaa4de25.jpg"
     },
+    "odbhutchele": {
+      "avatar": "https://userpic.codeforces.org/4183162/avatar/90a01fb92a343ff.jpg",
+      "country": "Bangladesh",
+      "firstName": null,
+      "handle": "OdbhutChele",
+      "lastName": null,
+      "maxRank": "pupil",
+      "maxRating": 1313,
+      "organization": "",
+      "rank": "newbie",
+      "rating": 1094,
+      "titlePhoto": "https://userpic.codeforces.org/4183162/title/596fa45b50e129bd.jpg"
+    },
     "offbyon3": {
       "avatar": "https://userpic.codeforces.org/779747/avatar/233f8570bc87c0ad.jpg",
       "country": "Bangladesh",
@@ -10531,6 +10609,19 @@
       "rank": "newbie",
       "rating": 956,
       "titlePhoto": "https://userpic.codeforces.org/3046814/title/626196e8fb86dd3a.jpg"
+    },
+    "onekslow": {
+      "avatar": "https://userpic.codeforces.org/5087136/avatar/1f8101fc9d9ec1c3.jpg",
+      "country": "Bangladesh",
+      "firstName": null,
+      "handle": "onekslow",
+      "lastName": null,
+      "maxRank": "newbie",
+      "maxRating": 1185,
+      "organization": "Islamic University of Technology",
+      "rank": "newbie",
+      "rating": 1074,
+      "titlePhoto": "https://userpic.codeforces.org/5087136/title/eca59c67219cd668.jpg"
     },
     "onsitecurse": {
       "avatar": "https://userpic.codeforces.org/4176717/avatar/10364b748ade968b.jpg",
@@ -11884,6 +11975,19 @@
       "rating": 1317,
       "titlePhoto": "https://userpic.codeforces.org/3732027/title/8d8a0929146cbc6b.jpg"
     },
+    "resilient1": {
+      "avatar": "https://userpic.codeforces.org/no-avatar.jpg",
+      "country": "Bangladesh",
+      "firstName": null,
+      "handle": "Resilient1",
+      "lastName": null,
+      "maxRank": "pupil",
+      "maxRating": 1220,
+      "organization": "Islamic University of Technology",
+      "rank": "pupil",
+      "rating": 1220,
+      "titlePhoto": "https://userpic.codeforces.org/no-title.jpg"
+    },
     "rezoyan_rifat": {
       "avatar": "https://userpic.codeforces.org/no-avatar.jpg",
       "country": null,
@@ -12299,6 +12403,19 @@
       "rank": "specialist",
       "rating": 1420,
       "titlePhoto": "https://userpic.codeforces.org/3491804/title/d8cfc783ff94b51d.jpg"
+    },
+    "ryexocious": {
+      "avatar": "https://userpic.codeforces.org/3352422/avatar/ae644aa79bbfe84.jpg",
+      "country": "Bangladesh",
+      "firstName": "SAIBUL HAQUE",
+      "handle": "Ryexocious",
+      "lastName": "JESSAN",
+      "maxRank": "specialist",
+      "maxRating": 1403,
+      "organization": "Islamic University of Technology",
+      "rank": "pupil",
+      "rating": 1361,
+      "titlePhoto": "https://userpic.codeforces.org/3352422/title/cbc16358cdf76446.jpg"
     },
     "ryuga_": {
       "avatar": "https://userpic.codeforces.org/2431900/avatar/89281d3aa77dbe9c.jpg",
@@ -15003,6 +15120,19 @@
       "rank": "newbie",
       "rating": 890,
       "titlePhoto": "https://userpic.codeforces.org/4767732/title/eb73f00161a69293.jpg"
+    },
+    "tahsynapse": {
+      "avatar": "https://userpic.codeforces.org/4015348/avatar/d05e4998bab8a9e9.jpg",
+      "country": "Bangladesh",
+      "firstName": "Tahsin Ahsan",
+      "handle": "tahsynapse",
+      "lastName": "Sarker",
+      "maxRank": "pupil",
+      "maxRating": 1286,
+      "organization": "Islamic University of Technology",
+      "rank": "pupil",
+      "rating": 1286,
+      "titlePhoto": "https://userpic.codeforces.org/4015348/title/514084b371200ca1.jpg"
     },
     "takipuki": {
       "avatar": "https://userpic.codeforces.org/3568462/avatar/c0b7067dde6f4c21.jpg",

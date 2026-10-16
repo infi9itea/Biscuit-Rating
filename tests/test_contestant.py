@@ -214,8 +214,8 @@ def test_form_responses_fill_free_cells_and_report_conflicts():
         ]
         responses = root / "responses.csv"
         pd.DataFrame([
-            {"Timestamp": "2026-10-01", "Name": "Old", "Handle": "newbie", "Institution": "X", "Teams": "[]"},
-            {"Timestamp": "2026-10-02", "Name": "New", "Handle": "newbie", "Institution": "X", "Teams": json.dumps(teams)},
+            {"Timestamp": "10/2/2026 09:00:00", "Name": "New", "Handle": "newbie", "Institution": "X", "Teams": json.dumps(teams)},
+            {"Timestamp": "9/30/2026 18:00:00", "Name": "Old", "Handle": "newbie", "Institution": "X", "Teams": "[]"},
         ]).to_csv(responses, index=False)
 
         changes, problems = import_form_responses(members, [responses])

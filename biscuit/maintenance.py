@@ -161,12 +161,18 @@ def import_form_responses(members_path: Path, response_paths: list[Path], apply:
     member_columns = [column for column in frame.columns if column.startswith("member")]
     index = {(row.contest.upper(), row.team_name): i for i, row in frame.iterrows()}
 
-    responses = {}
+    sheets = []
     for path in response_paths:
         sheet = pd.read_csv(path, dtype=str, keep_default_na=False)
         sheet.columns = [column.strip().lower() for column in sheet.columns]
-        for row in sorted(sheet.to_dict("records"), key=lambda row: row.get("timestamp", "")):
-            responses[row["handle"].strip().lower()] = row
+        sheets.append(sheet)
+    rows = pd.concat(sheets, ignore_index=True)
+    # Google Sheets writes month/day/year times and the page's own file ISO ones;
+    # compare them as times, not text, to find each person's latest response.
+    rows["time"] = pd.to_datetime(rows.get("timestamp", ""), format="mixed", errors="coerce")
+    responses = {}
+    for row in rows.sort_values("time", kind="stable", na_position="first").to_dict("records"):
+        responses[row["handle"].strip().lower()] = row
 
     changes, problems = [], []
     for row in responses.values():
