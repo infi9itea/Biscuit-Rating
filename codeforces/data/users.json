@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-10-16T14:25:44+00:00",
+  "fetched_at": "2026-10-16T14:32:20+00:00",
   "missing": [],
   "users": {
     "-..-": {
@@ -2174,7 +2174,7 @@
       "titlePhoto": "https://userpic.codeforces.org/3520586/title/e47967bb51600691.jpg"
     },
     "ami_sakib": {
-      "avatar": "https://userpic.codeforces.org/4439574/avatar/2898362b1ef89c4f.jpg",
+      "avatar": "https://userpic.codeforces.org/4439574/avatar/f9613f1dc5ca886f.jpg",
       "country": "Bangladesh",
       "firstName": "Sakib",
       "handle": "Ami_Sakib",
@@ -2184,7 +2184,7 @@
       "organization": "CPS Academy",
       "rank": "newbie",
       "rating": 987,
-      "titlePhoto": "https://userpic.codeforces.org/4439574/title/6766c4dfdab3bc29.jpg"
+      "titlePhoto": "https://userpic.codeforces.org/4439574/title/3e4238b46da93978.jpg"
     },
     "aminul_islam_tayef": {
       "avatar": "https://userpic.codeforces.org/4150605/avatar/b58b537faa43a817.jpg",
@@ -8700,7 +8700,7 @@
       "titlePhoto": "https://userpic.codeforces.org/no-title.jpg"
     },
     "mma": {
-      "avatar": "https://userpic.codeforces.org/no-avatar.jpg",
+      "avatar": "https://userpic.codeforces.org/2724025/avatar/6d58b7d863e5bc68.jpg",
       "country": "Bangladesh",
       "firstName": "Md. Mamun",
       "handle": "MMA",
@@ -8710,7 +8710,7 @@
       "organization": "Islamic University,Bangladesh",
       "rank": "pupil",
       "rating": 1335,
-      "titlePhoto": "https://userpic.codeforces.org/no-title.jpg"
+      "titlePhoto": "https://userpic.codeforces.org/2724025/title/b5cf54b7308b9654.jpg"
     },
     "mmamun": {
       "avatar": "https://userpic.codeforces.org/2520281/avatar/a7fca01c520c3c97.jpg",
@@ -11276,7 +11276,7 @@
     "rafio": {
       "avatar": "https://userpic.codeforces.org/1369106/avatar/f3f1195826a0da27.jpg",
       "country": "Bangladesh",
-      "firstName": "Md. Irfanur Rahman",
+      "firstName": "Irfanur Rahman",
       "handle": "Rafio",
       "lastName": "Rafio",
       "maxRank": "expert",
