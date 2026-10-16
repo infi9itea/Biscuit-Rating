@@ -1,4 +1,5 @@
 slot_distributor/output/
+website/output/
 slot_distributor/input/*
 !slot_distributor/input/example/
 !slot_distributor/input/example/**

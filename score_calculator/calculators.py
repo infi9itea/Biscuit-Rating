@@ -8,7 +8,7 @@ class ScoreCalculator(ABC):
         raise NotImplementedError
 
 
-class ShongScoreCalculator(ScoreCalculator):
+class BiscuitScoreCalculator(ScoreCalculator):
     def __init__(self, institution_team_limit: int, rating_degree: float):
         self.institution_team_limit = institution_team_limit
         self.rating_degree = rating_degree
@@ -21,7 +21,7 @@ class ShongScoreCalculator(ScoreCalculator):
         return powered_mean ** (1 / self.rating_degree)
 
 
-CALCULATORS = {"SHONG": ShongScoreCalculator}
+CALCULATORS = {"BISCUIT": BiscuitScoreCalculator}
 
 
 def create(name: str, parameters: dict) -> ScoreCalculator:

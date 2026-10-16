@@ -26,6 +26,7 @@ class ParsedContest:
     parser: str
     teams: list[Team]
     warnings: list[str] = field(default_factory=list)
+    problems: int | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -34,6 +35,7 @@ class ParsedContest:
             "parser": self.parser,
             "teams": [team.to_dict() for team in self.teams],
             "warnings": self.warnings,
+            "problems": self.problems,
         }
 
     @classmethod
@@ -44,4 +46,5 @@ class ParsedContest:
             parser=value["parser"],
             teams=[Team.from_dict(team) for team in value["teams"]],
             warnings=value.get("warnings", []),
+            problems=value.get("problems"),
         )

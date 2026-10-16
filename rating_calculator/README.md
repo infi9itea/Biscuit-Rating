@@ -20,7 +20,7 @@ contest without a score or a date is an error.
 - `input/credits.json`: contest credits
 - `input/options.json`: selected calculator and its parameters
 
-## SHONG
+## Biscuit
 
 At every point in the history, each contest the institution took part in gets
 a weight from its credit and its age:

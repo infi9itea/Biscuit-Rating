@@ -7,7 +7,7 @@ class PerformanceCalculator(ABC):
         raise NotImplementedError
 
 
-class ShongPerformanceCalculator(PerformanceCalculator):
+class BiscuitPerformanceCalculator(PerformanceCalculator):
     def __init__(self, maximum_team_rating: float, rank_decay_rate: float, solved_ratio_exponent: float):
         self.maximum_team_rating = maximum_team_rating
         self.rank_decay_rate = rank_decay_rate
@@ -21,7 +21,7 @@ class ShongPerformanceCalculator(PerformanceCalculator):
         return self.maximum_team_rating * rank_factor * solved_factor
 
 
-CALCULATORS = {"SHONG": ShongPerformanceCalculator}
+CALCULATORS = {"BISCUIT": BiscuitPerformanceCalculator}
 
 
 def create(name: str, parameters: dict) -> PerformanceCalculator:

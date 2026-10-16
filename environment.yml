@@ -1,4 +1,4 @@
-name: iupc-rating
+name: biscuit-rating
 channels:
   - conda-forge
 dependencies:

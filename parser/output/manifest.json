@@ -8,9 +8,9 @@
                 "3c654175ae8800b1509eec3d1c4b887129f272edf62276db447cab201730ce7a"
             ],
             "parser": "TOPH",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2024-01-26",
-            "parsed_at": "2026-06-07T12:33:16.014447+00:00",
+            "parsed_at": "2026-10-15T19:48:15.130266+00:00",
             "team_count": 100,
             "warning_count": 0
         },
@@ -22,9 +22,9 @@
                 "d69c7a2d51062572ce3a6489ce64a65932e92eeff715963b468bf9fbfdae4733"
             ],
             "parser": "TOPH",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2024-02-18",
-            "parsed_at": "2026-06-07T12:33:16.143044+00:00",
+            "parsed_at": "2026-10-15T19:48:15.239486+00:00",
             "team_count": 120,
             "warning_count": 0
         },
@@ -36,9 +36,9 @@
                 "0643aed72a1a3c35e62be405275a2f90d3153e1e6feec429e6892b235c2ee5c5"
             ],
             "parser": "BAPS",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2024-03-09",
-            "parsed_at": "2026-06-13T11:31:41.528857+00:00",
+            "parsed_at": "2026-10-15T19:48:15.503466+00:00",
             "team_count": 196,
             "warning_count": 0
         },
@@ -50,9 +50,9 @@
                 "bb43387352b10e8058f195985ecd8f31da5504a27981710f3cf27ab7e15b9b09"
             ],
             "parser": "TOPH",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2024-05-01",
-            "parsed_at": "2026-06-07T12:33:16.556907+00:00",
+            "parsed_at": "2026-10-15T19:48:15.588652+00:00",
             "team_count": 113,
             "warning_count": 0
         },
@@ -64,9 +64,9 @@
                 "dd67d553fc5c447b1d2983009f76f76e86402035529a1242a07ca2d522ba2883"
             ],
             "parser": "TOPH",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2024-11-01",
-            "parsed_at": "2026-06-07T12:33:16.690062+00:00",
+            "parsed_at": "2026-10-15T19:48:15.705630+00:00",
             "team_count": 114,
             "warning_count": 0
         },
@@ -80,9 +80,9 @@
                 "28d3e8fa6511e3f06b8acb1f172b08d70b7106fde0489942a3e0c4204bfe0830"
             ],
             "parser": "BAPS",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2024-12-07",
-            "parsed_at": "2026-06-13T11:31:42.698181+00:00",
+            "parsed_at": "2026-10-15T19:48:16.167612+00:00",
             "team_count": 309,
             "warning_count": 0
         },
@@ -94,9 +94,9 @@
                 "94ecfadaf69916fc0294971fa58cffd22a53a23febcdd450dc1d6f4452f28120"
             ],
             "parser": "BAPS",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2025-01-04",
-            "parsed_at": "2026-06-13T11:31:43.243451+00:00",
+            "parsed_at": "2026-10-15T19:48:16.355590+00:00",
             "team_count": 160,
             "warning_count": 0
         },
@@ -108,9 +108,9 @@
                 "dd09152103fc2d232c743e413168ce55a467fd2a92977cec829e6dc7221c3584"
             ],
             "parser": "BAPS",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2025-01-18",
-            "parsed_at": "2026-06-13T11:31:44.074175+00:00",
+            "parsed_at": "2026-10-15T19:48:16.631342+00:00",
             "team_count": 160,
             "warning_count": 0
         },
@@ -122,9 +122,9 @@
                 "acbea864edf77abacc99b20863fcea49e43129a63e150b6c8bba481b5819438c"
             ],
             "parser": "TOPH",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2025-02-22",
-            "parsed_at": "2026-06-07T12:33:17.912598+00:00",
+            "parsed_at": "2026-10-15T19:48:16.748663+00:00",
             "team_count": 130,
             "warning_count": 0
         },
@@ -136,9 +136,9 @@
                 "440e6654a6d6c5ee14473dcce68a1296a0e6f250579f35812e5bfb0a91448b81"
             ],
             "parser": "TOPH",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2025-05-10",
-            "parsed_at": "2026-06-07T12:33:18.066915+00:00",
+            "parsed_at": "2026-10-15T19:48:16.881770+00:00",
             "team_count": 138,
             "warning_count": 0
         },
@@ -150,9 +150,9 @@
                 "628160442e72d6d9f123025adf004e132865b9d8fe78cb78de82b2ece0948855"
             ],
             "parser": "TOPH",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2025-06-21",
-            "parsed_at": "2026-06-07T12:33:18.206238+00:00",
+            "parsed_at": "2026-10-15T19:48:17.017686+00:00",
             "team_count": 123,
             "warning_count": 0
         },
@@ -164,9 +164,9 @@
                 "73faafb12d1353d103c58e86d35eb689c78744a756420c6574a7ec11398ea875"
             ],
             "parser": "TOPH",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2025-11-22",
-            "parsed_at": "2026-06-07T12:33:18.292598+00:00",
+            "parsed_at": "2026-10-15T19:48:17.152685+00:00",
             "team_count": 100,
             "warning_count": 0
         },
@@ -178,9 +178,9 @@
                 "0dabe72ad5c17496a2ca3fd8b0267ea5f4a1d6e5502fe2ec256e8950a7afeb5b"
             ],
             "parser": "TOPH",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2025-12-13",
-            "parsed_at": "2026-06-07T12:33:18.519660+00:00",
+            "parsed_at": "2026-10-15T19:48:17.302610+00:00",
             "team_count": 132,
             "warning_count": 0
         },
@@ -194,9 +194,9 @@
                 "172bb5258365de46f73204d8bc9447ba21cedb438bf3e97de18e8eedabe58faf"
             ],
             "parser": "BAPS",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2025-12-20",
-            "parsed_at": "2026-06-13T11:31:45.035021+00:00",
+            "parsed_at": "2026-10-15T19:48:17.743027+00:00",
             "team_count": 313,
             "warning_count": 0
         },
@@ -208,9 +208,9 @@
                 "612b3e80ea62fff049c9fc94c0467ca2a8703c2e41456930976956c07d44eb1b"
             ],
             "parser": "TOPH",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2026-02-05",
-            "parsed_at": "2026-06-07T12:33:19.054533+00:00",
+            "parsed_at": "2026-10-15T19:48:17.885689+00:00",
             "team_count": 110,
             "warning_count": 0
         },
@@ -222,9 +222,9 @@
                 "5ab986e610d95a30b1908b9ff6a2700812c50616819c4ac6b67ab98668cdc976"
             ],
             "parser": "TOPH",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2026-05-16",
-            "parsed_at": "2026-06-07T12:33:19.140185+00:00",
+            "parsed_at": "2026-10-15T19:48:17.970977+00:00",
             "team_count": 86,
             "warning_count": 0
         },
@@ -236,9 +236,9 @@
                 "6d57da09476c25a8b4c18719d3190037ecde367e2776771bac164886d7c50ff8"
             ],
             "parser": "BAPS",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2026-06-12",
-            "parsed_at": "2026-06-13T11:31:45.574727+00:00",
+            "parsed_at": "2026-10-15T19:48:18.207102+00:00",
             "team_count": 159,
             "warning_count": 0
         },
@@ -250,9 +250,9 @@
                 "ecd3f5f4d165f2d7406991a6206bb6b34f574b6dab6a4e422417691f41481e66"
             ],
             "parser": "TOPH",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2026-06-27",
-            "parsed_at": "2026-06-28T06:37:29.569926+00:00",
+            "parsed_at": "2026-10-15T19:48:18.370777+00:00",
             "team_count": 140,
             "warning_count": 0
         },
@@ -264,9 +264,9 @@
                 "19cad35d2489f5902970375c80f1c8eeab201eb3d434a7b6ddcdd2d52bb227f5"
             ],
             "parser": "TOPH",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2026-07-12",
-            "parsed_at": "2026-07-13T11:59:05.968687+00:00",
+            "parsed_at": "2026-10-15T19:48:18.517535+00:00",
             "team_count": 138,
             "warning_count": 0
         },
@@ -278,9 +278,9 @@
                 "743cef19bd9c10d4683de3d4eb2da1a2c58641c39787f22bf78f5c97795ba0e2"
             ],
             "parser": "TOPH",
-            "parser_version": 1,
+            "parser_version": 2,
             "date": "2026-07-25",
-            "parsed_at": "2026-07-26T08:33:17.454497+00:00",
+            "parsed_at": "2026-10-15T19:48:18.629942+00:00",
             "team_count": 112,
             "warning_count": 0
         }

@@ -19,7 +19,7 @@ institution.
 - `service.py`: `run()`
 - `input/options.json`: selected calculator and its parameters
 
-## SHONG
+## Biscuit
 
 For rank `r`, solved count `s`, and the contest's maximum solved count `m`:
 

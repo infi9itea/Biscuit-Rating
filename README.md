@@ -1,7 +1,8 @@
-# IUPC Rating
+# Biscuit Rating
 
-Rates institutions from programming contest standings and distributes contest
-slots using those ratings.
+Rates institutions and individual contestants from programming contest
+standings, distributes contest slots using institution ratings, and publishes
+a rating website.
 
 1. The **parser** turns saved standings HTML into contests.
 2. The **performance calculator** gives every team a performance.
@@ -9,9 +10,12 @@ slots using those ratings.
 4. The **rating calculator** combines scores over time into a rating.
 5. The **slot distributor** allocates a contest's slots using ratings, recent
    participation, and the slots each institution registered for.
+6. The **individual rating** credits each team's performance to its members
+   and rates every contestant.
+7. The **website** publishes the individual ratings, with a page per person.
 
 The **contests** and **institution finder** modules own the contest data and
-the institution names. The **`iupc`** command ties everything together.
+the institution names. The **`biscuit`** command ties everything together.
 
 ## Installation
 
@@ -30,12 +34,12 @@ python -m pip install -e ".[test]"
 
 ```bash
 conda env create -f environment.yml
-conda activate iupc-rating
+conda activate biscuit-rating
 ```
 
-Both install the `iupc` command. Activate the environment in every new
-terminal. Run all commands from the repository root. If the `iupc` command
-isn't found, `python -m iupc` works the same way.
+Both install the `biscuit` command. Activate the environment in every new
+terminal. Run all commands from the repository root. If the `biscuit` command
+isn't found, `python -m biscuit` works the same way.
 
 ## Usage
 
@@ -44,13 +48,13 @@ For complete walkthroughs, see [Step-by-step guides](#step-by-step-guides).
 ### Regenerate the data
 
 ```bash
-iupc update            # validate the inputs, then rerun whatever is out of date
-iupc update --check    # list out-of-date steps; exit 1 if any
-iupc update --force    # rerun everything
-iupc update --graph    # print the dependency graph
+biscuit update            # validate the inputs, then rerun whatever is out of date
+biscuit update --check    # list out-of-date steps; exit 1 if any
+biscuit update --force    # rerun everything
+biscuit update --graph    # print the dependency graph
 ```
 
-`iupc update` first validates the inputs:
+`biscuit update` first validates the inputs:
 
 - contest names, dates, parsers, and standings files
 - every contest has a credit, and every credit belongs to a contest
@@ -62,34 +66,36 @@ It then reruns only the steps whose inputs changed (see
 ### Add a contest
 
 ```bash
-iupc add-contest --html "path/to/standings.html" \
+biscuit add-contest --html "path/to/standings.html" \
   --name "IUT 2026" --date 2026-07-25 --parser TOPH --credit 1
-iupc update
-iupc check-institutions --contest "IUT 2026"
+biscuit update
+biscuit check-institutions --contest "IUT 2026"
 ```
 
 - **`--html`:** pass every page of a multi-page standings, in order.
 - **`--parser`:** `TOPH` or `BAPS`.
 - **`--credit`:** weights the contest in the ratings. The default is `1`, and
   ICPC regionals use `3`, so they count three times as much.
+- **`--standings`:** the public standings page, linked from the "Get listed"
+  form. By default it is the address the browser saved the HTML from.
 
 `check-institutions` lists institution names in the standings that the
 database does not know. Teams with such names are left out of the ratings.
-Fix them with the commands below, then run `iupc update` again.
+Fix them with the commands below, then run `biscuit update` again.
 
 ### Manage institutions
 
 ```bash
-iupc add-institution "EXAMPLE UNIVERSITY"
-iupc add-alt-name "EXAMPLE UNIVERSITY" "EXAMPLE UNIV."
-iupc check-institutions --interactive
+biscuit add-institution "EXAMPLE UNIVERSITY"
+biscuit add-alt-name "EXAMPLE UNIVERSITY" "EXAMPLE UNIV."
+biscuit check-institutions --interactive
 ```
 
 An alternate name is any other spelling of an institution, including typos in
 standings. The standings files are never edited. The interactive mode shows
 each unknown name with its closest matches. For each one, you choose: save it
 as an alternate name, add it as a new institution, or skip it. Afterwards it
-runs `iupc update`.
+runs `biscuit update`.
 
 ### Distribute slots
 
@@ -101,8 +107,8 @@ Copy both formats from `slot_distributor/input/example/`. The input folder is
 git-ignored. Then run:
 
 ```bash
-iupc distribute
-iupc distribute --interactive
+biscuit distribute
+biscuit distribute --interactive
 ```
 
 The result is in `slot_distributor/output/`:
@@ -110,12 +116,62 @@ The result is in `slot_distributor/output/`:
 - `slots.xlsx` is for organizers.
 - `slots.csv` and `waiting_list.csv` hold the same results as plain CSV.
 
-If a registered name is unknown, `iupc distribute` stops and writes
+If a registered name is unknown, `biscuit distribute` stops and writes
 `missing.csv` with suggestions. `--interactive` prompts instead. For each
 name, you can save it as an alternate name, fix it as a typo in
 `registered.csv` only, or add a new institution. See
 [slot_distributor/README.md](slot_distributor/README.md) for the algorithm and
 options.
+
+### Rate individuals and build the website
+
+Team members go in `members/data/members.csv`, one row per team:
+
+```csv
+contest,institution,team_name,member1,member2,member3
+ICPC 2025,UNIVERSITY OF DHAKA,DU_Team,handle_a,handle_b,
+```
+
+`contest`, `institution` and `team_name` must match the parsed standings;
+`biscuit update` checks every row and suggests close team names. A `NULL` member
+cell means the handle was not provided; people without a Codeforces handle are
+left out. `biscuit complete-members` adds a `NULL` row for every team that has no
+row yet and sorts the file by institution, contest date, and team name, so a
+new contest's teams are ready to fill in.
+
+Contestants list themselves on the site's **Get listed** page
+(`form.html`). It checks their Codeforces handle, then asks for their team in
+each contest from their institution's teams in the standings, with optional
+teammates' handles, also checked on Codeforces. Answers go to a Google Form you
+own (see [Set up the Get listed form](#step-by-step-guides)); until one is
+connected, the page saves the answers as a CSV file to send instead. Review
+and import them with:
+
+```bash
+biscuit import-form responses.csv           # show what would be added and what needs a look
+biscuit import-form responses.csv --apply   # write it to members.csv
+```
+
+A handle fills its team's first free member cell. Handles already on another
+team in that contest, full teams, and team names not in the standings are
+listed for you to settle by hand. A person's latest response replaces their
+earlier ones. Then:
+
+```bash
+biscuit fetch-codeforces      # cache names and photos of newly listed handles
+biscuit update                # rate everyone
+biscuit site --serve          # build the site and preview it at http://127.0.0.1:8000/
+```
+
+`biscuit site` alone writes the site to `website/output/` without serving it.
+Codeforces profiles are cached in `codeforces/data/users.json`;
+`biscuit fetch-codeforces --refresh` fetches all of them again.
+
+Each person has one handle. List people with several accounts under their main
+one only. `biscuit fetch-codeforces` rewrites any handle Codeforces now spells
+differently (a renamed account, or other letter case) to the current handle
+throughout `members.csv`. Renames of handles fetched earlier show up with
+`--refresh`, which CI runs on every push to the default branch.
 
 ### Run the tests
 
@@ -141,14 +197,14 @@ Toph (parser `TOPH`) or BAPS, `bapsoj.org` (parser `BAPS`).
 **2. Open the project environment** and start from the latest data:
 
 ```bash
-source .venv/bin/activate        # or: conda activate iupc-rating
+source .venv/bin/activate        # or: conda activate biscuit-rating
 git pull
 ```
 
 **3. Register the contest:**
 
 ```bash
-iupc add-contest --html ~/Downloads/XYZ26.html \
+biscuit add-contest --html ~/Downloads/XYZ26.html \
   --name "XYZ 2026" --date 2026-10-15 --parser TOPH --credit 1
 ```
 
@@ -161,20 +217,20 @@ use `3`, so they count three times as much.
 **4. Regenerate the ratings:**
 
 ```bash
-iupc update
+biscuit update
 ```
 
 **5. Fix institution names.** Teams whose institution is unknown are left out
 of the ratings, so check:
 
 ```bash
-iupc check-institutions --contest "XYZ 2026"
+biscuit check-institutions --contest "XYZ 2026"
 ```
 
 If it prints "Every institution name resolves", go to step 6. Otherwise, run:
 
 ```bash
-iupc check-institutions --contest "XYZ 2026" --interactive
+biscuit check-institutions --contest "XYZ 2026" --interactive
 ```
 
 For each unknown name it shows the closest matches. Pick one:
@@ -186,19 +242,19 @@ For each unknown name it shows the closest matches. Pick one:
 | `o` | It is another institution. Type that institution's name. |
 | `s` | Skip it. Use this for names that aren't institutions, like `IOI`, `TEMP UNIVERSITY`, or an empty name. |
 
-Afterwards it runs `iupc update` for you. The same fixes can be made one at a
+Afterwards it runs `biscuit update` for you. The same fixes can be made one at a
 time:
 
 ```bash
-iupc add-alt-name "INTERNATIONAL ISLAMIC UNIVERSITY CHITTAGONG" "INTERNATIONAL ISLMAIC UNIVERSITY CHITTAGONG"
-iupc add-institution "NEW UNIVERSITY NAME"
-iupc update
+biscuit add-alt-name "INTERNATIONAL ISLAMIC UNIVERSITY CHITTAGONG" "INTERNATIONAL ISLMAIC UNIVERSITY CHITTAGONG"
+biscuit add-institution "NEW UNIVERSITY NAME"
+biscuit update
 ```
 
 **6. Check the result:**
 
 ```bash
-iupc update --check
+biscuit update --check
 git diff --stat
 ```
 
@@ -240,12 +296,12 @@ takes place, as in the guide above.
 **1. Get the latest data:**
 
 ```bash
-source .venv/bin/activate        # or: conda activate iupc-rating
+source .venv/bin/activate        # or: conda activate biscuit-rating
 git pull
-iupc update --check              # should say "All outputs are up to date."
+biscuit update --check              # should say "All outputs are up to date."
 ```
 
-If it lists stale steps, run `iupc update` first.
+If it lists stale steps, run `biscuit update` first.
 
 **2. Write the registration list.** Create
 `slot_distributor/input/registered.csv` with one row per institution and the
@@ -300,7 +356,7 @@ registration data never ends up in the repository.
 **4. Run it:**
 
 ```bash
-iupc distribute --interactive
+biscuit distribute --interactive
 ```
 
 If every name is recognized, it goes straight to the result. For each name it
@@ -359,12 +415,69 @@ here's the registration sheet: …"*. The `distribute-slots` skill will:
 
 </details>
 
+<details>
+<summary><b>Set up the Get listed form</b></summary>
+
+The site's form sends answers to a Google Form, so they land in a Google Sheet
+you own. Respondents never see the Google Form itself.
+
+**1. Create the Google Form** at [forms.google.com](https://forms.google.com)
+with four questions titled exactly `Name`, `Handle`, `Institution` (all
+**Short answer**), and `Teams` (**Paragraph**, as it holds every contest's
+answer). Leave them all optional and turn off "Collect
+email addresses" and sign-in (Settings > Responses), so the site can post to
+it.
+
+**2. Find the question ids.** Open the menu (⋮) > **Get pre-filled link**,
+type `x` in every question, and click **Get link**. The link looks like:
+
+```text
+https://docs.google.com/forms/d/e/FORM_ID/viewform?usp=pp_url&entry.111=x&entry.222=x&entry.333=x&entry.444=x
+```
+
+**3. Connect the site** by filling in `website/input/form.json`, replacing
+`viewform` with `formResponse` and using the `entry.` numbers in question
+order:
+
+```json
+{
+  "action": "https://docs.google.com/forms/d/e/FORM_ID/formResponse",
+  "entries": {
+    "Name": "entry.111",
+    "Handle": "entry.222",
+    "Institution": "entry.333",
+    "Teams": "entry.444"
+  }
+}
+```
+
+Run `biscuit site --serve`, submit a test answer at
+http://127.0.0.1:8000/form.html, and check that it shows up under the Google
+Form's **Responses**. Then commit `form.json`; the next deployment puts the
+form live.
+
+**4. Import answers.** In the Google Form's responses, click **Link to
+Sheets**, then in the sheet use **File > Download > Comma-separated values**.
+Then:
+
+```bash
+biscuit import-form ~/Downloads/responses.csv           # review
+biscuit import-form ~/Downloads/responses.csv --apply   # write
+biscuit fetch-codeforces && biscuit update                 # rate the new members
+```
+
+Settle the listed problems in `members/data/members.csv` by hand, and delete
+the downloaded file: it holds respondents' names.
+
+</details>
+
 ## How it fits together
 
 ```mermaid
 flowchart TD
     contest_data[("contest data")]
     institutions[("institutions.json")]
+    members[("members.csv")]
     parser --> contest_data
     contest_data --> performance_calculator
     institutions --> performance_calculator
@@ -372,13 +485,18 @@ flowchart TD
     performance_calculator --> score_calculator
     contest_data --> rating_calculator
     score_calculator --> rating_calculator
+    contest_data --> contestant_rating
+    performance_calculator --> contestant_rating
+    members --> contestant_rating
     rating_calculator -. ratings .-> slot_distributor
     contest_data -. participation .-> slot_distributor
     institutions -.-> slot_distributor
+    contestant_rating -. contestant ratings .-> website
+    rating_calculator -. institution ratings .-> website
 ```
 
 Each step lists its input files: its own code and `input/` folder, plus the
-outputs it reads. `iupc update` fingerprints those files in `iupc/state.json`
+outputs it reads. `biscuit update` fingerprints those files in `biscuit/state.json`
 and reruns a step only when they change. Some examples:
 
 - **New contest:** every step reruns.
@@ -387,7 +505,7 @@ and reruns a step only when they change. Some examples:
   rerun only if the name appears in some standings.
 
 The slot distributor is not a step. Its registrations are private, so it runs
-only when you call `iupc distribute`.
+only when you call `biscuit distribute`.
 
 ### Modules
 
@@ -404,11 +522,17 @@ folders. Each package has a README describing it.
 | `score_calculator/` | institution scores | `contests` (dates) |
 | `rating_calculator/` | institution ratings | `contests` (dates) |
 | `slot_distributor/` | slot allocation | `contests`, `institution_finder` |
-| `iupc/` | command line, update pipeline, validation | all of the above |
+| `members/` | team members (`members.csv`) and their validation | `contests` |
+| `codeforces/` | cached Codeforces profiles | — |
+| `contestant_rating/` | ratings of individual contestants | `contests`, `members`, `rating_calculator` (formula) |
+| `website/` | static website: contestant and institution rankings, a page per contestant and per institution, and the "Get listed" form | `contests`, `codeforces`, `members`; reads the rating outputs |
+| `biscuit/` | command line, update pipeline, validation | all of the above |
 
-`contests` and `institution_finder` are data modules: they own their data's
-format and every other module reads that data through them. Only the `iupc`
-package depends on more than two modules, and no module depends on `iupc`.
+`contests`, `institution_finder`, `members` and `codeforces` are data modules:
+they own their data's format and every other module reads that data through
+them. `contestant_rating` reuses the rating calculator's formula rather than
+duplicating it. Only the `biscuit` package ties modules together into a workflow,
+and no module depends on `biscuit`.
 The contest files are stored in `parser/output/contests/`, because the parser
 produces them.
 
@@ -420,10 +544,13 @@ To add a new algorithm, subclass the interface in that module's
 
 ### Continuous integration
 
-`.github/workflows/ci.yml` runs `iupc update` and the tests on every push and
+`.github/workflows/ci.yml` runs `biscuit update` and the tests on every push and
 pull request. On the default branch it also commits any regenerated outputs.
-So adding a contest, institution, or alternate name is enough, and the ratings
-follow automatically.
+So adding a contest, institution, alternate name, or team members is enough,
+and the ratings follow automatically. On the default branch it also refreshes
+every member's Codeforces profile, writes renamed handles back to
+`members.csv`, and publishes the website to GitHub Pages (Settings > Pages >
+Source must be set to "GitHub Actions").
 
 ### Agent skills
 
@@ -434,7 +561,7 @@ follow automatically.
 - `distribute-slots`: runs the slot distributor, fixing misspelled or new
   institutions with your confirmation.
 
-Both skills only run the `iupc` commands above, so you can do everything they
+Both skills only run the `biscuit` commands above, so you can do everything they
 do by hand.
 
 ## License

@@ -26,10 +26,18 @@ jobs:
       - name: Install
         run: python -m pip install -e .[test]
 
+      # Refreshes every member's Codeforces name, photo, and rank, and rewrites
+      # renamed handles in members.csv. A Codeforces outage must not block the
+      # rest of the update.
+      - name: Fetch Codeforces profiles
+        if: github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+        continue-on-error: true
+        run: biscuit fetch-codeforces --refresh
+
       # Validates the hand-maintained data, then reruns every stage of the
       # dependency graph whose inputs changed (see README.md).
       - name: Update generated data
-        run: iupc update
+        run: biscuit update
 
       - name: Test
         run: python -m pytest
@@ -42,7 +50,8 @@ jobs:
       - name: Commit generated data
         if: github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
         run: |
-          git add parser/output performance_calculator/output score_calculator/output rating_calculator/output iupc/state.json
+          git add parser/output performance_calculator/output score_calculator/output rating_calculator/output \
+            contestant_rating/output codeforces/data members/data/members.csv biscuit/state.json
           if git diff --cached --quiet; then
             echo "Generated data is already up to date."
             exit 0
@@ -51,3 +60,40 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "Update generated data"
           git push
+
+  # Publishes the rating website to GitHub Pages from the default branch.
+  # Needs Settings > Pages > Source set to "GitHub Actions".
+  deploy-site:
+    needs: update-and-test
+    if: github.event_name != 'pull_request' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch)
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      # The branch tip includes the data the previous job just committed.
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.repository.default_branch }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+
+      - name: Install
+        run: python -m pip install -e .
+
+      - name: Build site
+        run: biscuit site
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: website/output
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

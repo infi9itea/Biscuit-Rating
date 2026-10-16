@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "iupc-rating"
+name = "biscuit-rating"
 version = "0.2.0"
 description = "Parse contest standings, rate institutions, and distribute contest slots."
 requires-python = ">=3.10"
@@ -17,11 +17,11 @@ dependencies = [
 test = ["pytest"]
 
 [project.scripts]
-iupc = "iupc.cli:main"
+biscuit = "biscuit.cli:main"
 
 [tool.setuptools]
 packages = [
-    "iupc",
+    "biscuit",
     "parser",
     "performance_calculator",
     "score_calculator",
@@ -29,6 +29,10 @@ packages = [
     "slot_distributor",
     "institution_finder",
     "contests",
+    "members",
+    "codeforces",
+    "contestant_rating",
+    "website",
 ]
 
 [tool.pytest.ini_options]

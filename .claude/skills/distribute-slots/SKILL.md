@@ -6,10 +6,10 @@ description: Run the slot distributor for an upcoming contest. Use when the user
 # Distribute slots
 
 Every step below is a plain CLI command, so a person can do the same without an
-agent: `iupc distribute --interactive` prompts for each unknown name.
+agent: `biscuit distribute --interactive` prompts for each unknown name.
 
 Run everything from the repository root inside the project environment
-(`source .venv/bin/activate` or `conda activate iupc-rating`).
+(`source .venv/bin/activate` or `conda activate biscuit-rating`).
 
 ## 1. Prepare the inputs
 
@@ -40,13 +40,13 @@ values as defaults when the file exists.
 ## 2. Make sure the ratings are current
 
 ```bash
-iupc update --check || iupc update
+biscuit update --check || biscuit update
 ```
 
 ## 3. Run and fix names
 
 ```bash
-iupc distribute
+biscuit distribute
 ```
 
 If it stops with `Registered institutions were not found`, read
@@ -64,14 +64,14 @@ Classify every missing name and present all proposals to the user in one batch:
   `registered.csv` to the canonical name.
 - **Legitimate variant** that will appear again (an abbreviation, `&` versus
   `AND`, a campus suffix): propose
-  `iupc add-alt-name "CANONICAL NAME" "NAME AS WRITTEN"`.
+  `biscuit add-alt-name "CANONICAL NAME" "NAME AS WRITTEN"`.
 - **New institution** that has never been in the database: propose
-  `iupc add-institution "FULL OFFICIAL NAME"`. It needs no special
+  `biscuit add-institution "FULL OFFICIAL NAME"`. It needs no special
   handling: with no rating and no participation history it is treated as having
   missed the maximum number of contests.
 
 Apply only what the user confirms. If the institution database changed, run
-`iupc update` before rerunning the distributor, since ratings depend on it.
+`biscuit update` before rerunning the distributor, since ratings depend on it.
 
 The distributor also stops if two rows resolve to the same institution or a
 `Max Slots` value is not a positive integer. Show the rows to the user and ask

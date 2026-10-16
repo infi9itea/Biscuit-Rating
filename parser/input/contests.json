@@ -4,121 +4,141 @@
       "name": "CUET 2024",
       "filenames": ["CUET24.html"],
       "parser": "TOPH",
-      "date": "2024-01-26"
+      "date": "2024-01-26",
+      "standings": "https://toph.co/c/cuet-inter-university-codestorm-1-0/standings"
     },
     {
       "name": "SUST 2024",
       "filenames": ["SUST24.html"],
       "parser": "TOPH",
-      "date": "2024-02-18"
+      "date": "2024-02-18",
+      "standings": "https://toph.co/c/inter-university-sust-cse-carnival-2024/standings"
     },
     {
       "name": "NCPC 2024",
       "filenames": ["NCPC24.html"],
       "parser": "BAPS",
-      "date": "2024-03-09"
+      "date": "2024-03-09",
+      "standings": "https://bapsoj.org/contests/ncpc-onsite-2023-hosted-by-ju/standings"
     },
     {
       "name": "IUT 2024",
       "filenames": ["IUT24.html"],
       "parser": "TOPH",
-      "date": "2024-05-01"
+      "date": "2024-05-01",
+      "standings": "https://toph.co/c/iut-11th-national-ict-fest-2024/standings"
     },
     {
       "name": "BUET 2024",
       "filenames": ["BUET24.html"],
       "parser": "TOPH",
-      "date": "2024-11-01"
+      "date": "2024-11-01",
+      "standings": "https://toph.co/c/inter-university-buet-cse-fest-2024/standings"
     },
     {
       "name": "ICPC 2024",
       "filenames": ["ICPC24 - Page 1.html", "ICPC24 - Page 2.html"],
       "parser": "BAPS",
-      "date": "2024-12-07"
+      "date": "2024-12-07",
+      "standings": "https://bapsoj.org/contests/icpc-asia-dhaka-regional-contest-2024-onsite-round/standings"
     },
     {
       "name": "KUET 2025",
       "filenames": ["KUET25.html"],
       "parser": "BAPS",
-      "date": "2025-01-04"
+      "date": "2025-01-04",
+      "standings": "https://bapsoj.org/contests/miaki-presents-kuet-iupc-onsite-2025/standings"
     },
     {
       "name": "UIU 2025",
       "filenames": ["UIU25.html"],
       "parser": "BAPS",
-      "date": "2025-01-18"
+      "date": "2025-01-18",
+      "standings": "https://bapsoj.org/contests/uiu-inter-university-programming-contest-2025/standings"
     },
     {
       "name": "AUST 2025",
       "filenames": ["AUST25.html"],
       "parser": "TOPH",
-      "date": "2025-02-22"
+      "date": "2025-02-22",
+      "standings": "https://toph.co/c/mtb-presents-aust-inter-university-2025/standings"
     },
     {
       "name": "DUET 2025",
       "filenames": ["DUET25.html"],
       "parser": "TOPH",
-      "date": "2025-05-10"
+      "date": "2025-05-10",
+      "standings": "https://toph.co/c/duet-inter-university-iupc-2025/standings"
     },
     {
       "name": "UU 2025",
       "filenames": ["UU25.html"],
       "parser": "TOPH",
-      "date": "2025-06-21"
+      "date": "2025-06-21",
+      "standings": "https://toph.co/c/uttara-university-inter-university-2025/standings"
     },
     {
       "name": "MU 2025",
       "filenames": ["MU25.html"],
       "parser": "TOPH",
-      "date": "2025-11-22"
+      "date": "2025-11-22",
+      "standings": "https://toph.co/c/inter-university-mu-cse-fest-2025/standings"
     },
     {
       "name": "CUET 2025",
       "filenames": ["CUET25.html"],
       "parser": "TOPH",
-      "date": "2025-12-13"
+      "date": "2025-12-13",
+      "standings": "https://toph.co/c/cuet-iupc-2025/standings"
     },
     {
       "name": "ICPC 2025",
       "filenames": ["ICPC25 - Page 1.html", "ICPC25 - Page 2.html"],
       "parser": "BAPS",
-      "date": "2025-12-20"
+      "date": "2025-12-20",
+      "standings": "https://bapsoj.org/contests/icpc-dhaka-onsite-2025/internal/standings"
     },
     {
       "name": "BUET 2026",
       "filenames": ["BUET26.html"],
       "parser": "TOPH",
-      "date": "2026-02-05"
+      "date": "2026-02-05",
+      "standings": "https://toph.co/c/inter-university-buet-cse-fest-2026/standings"
     },
     {
       "name": "NDUB 2026",
       "filenames": ["NDUB26.html"],
       "parser": "TOPH",
-      "date": "2026-05-16"
+      "date": "2026-05-16",
+      "standings": "https://toph.co/c/ndub-cse-iupc-2026/standings"
     },
     {
       "name": "NSU 2026",
       "filenames": ["NSU26.html"],
       "parser": "BAPS",
-      "date": "2026-06-12"
+      "date": "2026-06-12",
+      "standings": "https://bapsoj.org/contests/nsucec-cybernauts-iupc-2026/standings"
     },
     {
       "name": "DUET 2026",
       "filenames": ["DUET26.html"],
       "parser": "TOPH",
-      "date": "2026-06-27"
+      "date": "2026-06-27",
+      "standings": "https://toph.co/c/duet-inter-university-2026/standings"
     },
     {
       "name": "SUST 2026",
       "filenames": ["SUST26.html"],
       "parser": "TOPH",
-      "date": "2026-07-12"
+      "date": "2026-07-12",
+      "standings": "https://toph.co/c/sust-inter-university-2026/standings"
     },
     {
       "name": "IUT 2026",
       "filenames": ["IUT26.html"],
       "parser": "TOPH",
-      "date": "2026-07-25"
+      "date": "2026-07-25",
+      "standings": "https://toph.co/c/iut-inter-university-2026/standings"
     }
   ]
 }

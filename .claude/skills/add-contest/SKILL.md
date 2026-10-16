@@ -9,7 +9,7 @@ Every step below is a plain CLI command, so a person can follow the same steps
 without an agent (see `README.md`).
 
 Run everything from the repository root inside the project environment
-(`source .venv/bin/activate` or `conda activate iupc-rating`).
+(`source .venv/bin/activate` or `conda activate biscuit-rating`).
 
 ## 1. Collect the contest details
 
@@ -33,19 +33,21 @@ details before writing anything.
 ## 2. Register the contest
 
 ```bash
-iupc add-contest --html "path/to/page 1.html" "path/to/page 2.html" \
+biscuit add-contest --html "path/to/page 1.html" "path/to/page 2.html" \
   --name "HOST 2026" --date 2026-06-01 --parser TOPH --credit 1
 ```
 
 This copies the HTML into `parser/input/contest_files/`, appends the contest to
 `parser/input/contests.json`, and adds its credit to
-`rating_calculator/input/credits.json`. If an HTML file name already exists,
+`rating_calculator/input/credits.json`. The contest's public standings link,
+shown on the site's "Get listed" form, is read from the saved HTML; if the
+file does not say where it was saved from, pass `--standings URL`. If an HTML file name already exists,
 rename the copy (for example `HOST26.html`) and retry.
 
 ## 3. Regenerate the data
 
 ```bash
-iupc update
+biscuit update
 ```
 
 It validates the data, then reruns only the stages whose inputs changed. If
@@ -55,7 +57,7 @@ user and fix the cause; do not edit generated outputs by hand.
 ## 4. Resolve unknown institutions
 
 ```bash
-iupc check-institutions --contest "HOST 2026"
+biscuit check-institutions --contest "HOST 2026"
 ```
 
 It prints tab-separated `Unresolved Name`, `Contests`, `Best Match`,
@@ -65,10 +67,10 @@ them to the user in one batch for confirmation:
 
 - **Spelling variant / typo of a known institution** (high probability, the
   same institution): propose adding it as an alternate name.
-  `iupc add-alt-name "CANONICAL NAME" "NAME AS WRITTEN"`
+  `biscuit add-alt-name "CANONICAL NAME" "NAME AS WRITTEN"`
   The standings HTML is never edited; alternate names are how typos are fixed.
 - **New institution**: propose adding it.
-  `iupc add-institution "FULL OFFICIAL NAME"`
+  `biscuit add-institution "FULL OFFICIAL NAME"`
   If the standings used an abbreviation or a variant, add the official name
   and then add the written form as an alternate name.
 - **Not an institution** (placeholders such as `IOI`, `TEMP UNIVERSITY`,
@@ -77,19 +79,19 @@ them to the user in one batch for confirmation:
 Never add a name without the user's confirmation. Group the proposals so the
 user can approve them all at once or correct individual ones.
 
-After applying the decisions, run `iupc update` again, then
-`iupc check-institutions --contest "HOST 2026"` to confirm that only the
+After applying the decisions, run `biscuit update` again, then
+`biscuit check-institutions --contest "HOST 2026"` to confirm that only the
 names the user chose to leave remain.
 
 ## 5. Verify and report
 
 ```bash
 python -m pytest
-iupc update --check
+biscuit update --check
 ```
 
 Report the contest that was added, the institution changes made, any names
 left unresolved, and the institutions whose rating moved the most (compare
 `rating_calculator/output/latest_ratings.csv` with `git diff`). Do not commit
 unless the user asks. When pushed to the default branch, CI regenerates the
-data anyway, so a forgotten `iupc update` is never left inconsistent.
+data anyway, so a forgotten `biscuit update` is never left inconsistent.

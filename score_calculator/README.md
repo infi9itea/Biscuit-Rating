@@ -18,7 +18,7 @@ one score, best in the newest contest first.
 - `service.py`: `run()`
 - `input/options.json`: selected calculator and its parameters
 
-## SHONG
+## Biscuit
 
 Takes the institution's best `institution_team_limit` teams and combines their
 performances with a power mean:

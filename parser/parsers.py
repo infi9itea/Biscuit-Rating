@@ -9,18 +9,22 @@ from contests import Team
 
 class Parser(ABC):
     # Bump when a parser's output changes, so stored contests are reparsed.
-    version = 1
+    version = 2
 
-    def parse(self, filepaths: list[Path]) -> tuple[list[Team], list[str]]:
+    def parse(self, filepaths: list[Path]) -> tuple[list[Team], list[str], int]:
+        """Teams, warnings, and the number of problems (one column each after
+        rank, team, and result)."""
         teams: list[Team] = []
         warnings: list[str] = []
+        problems = 0
         for filepath in filepaths:
             for row_number, cells in _standings_rows(filepath):
+                problems = max(problems, len(cells) - 3)
                 try:
                     teams.append(self.parse_row(cells))
                 except Exception as error:
                     warnings.append(f"{filepath.name}: row {row_number}: {type(error).__name__}: {error}")
-        return teams, warnings
+        return teams, warnings, problems
 
     @abstractmethod
     def parse_row(self, cells: list[Tag]) -> Team:

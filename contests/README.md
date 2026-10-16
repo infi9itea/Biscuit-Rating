@@ -6,7 +6,8 @@ reads them through it, so no one else depends on the file format.
 
 ## Files
 
-- `records.py`: `Team` and `ParsedContest` records
+- `records.py`: `Team` and `ParsedContest` records; a contest records its
+  number of problems
 - `store.py`: `save_contest()`, `load_contests()` (oldest first),
   `contest_dates()`, and `contest_path()`
 

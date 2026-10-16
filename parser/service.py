@@ -36,7 +36,7 @@ def run(input_directory: Path, output_directory: Path, force: bool = False) -> d
             skipped_count += 1
             continue
 
-        teams, warnings = parser.parse(files)
+        teams, warnings, problems = parser.parse(files)
         if not teams:
             raise ValueError(f"No teams parsed for {configuration['name']}")
         if warnings and options["fail_on_warnings"]:
@@ -47,6 +47,7 @@ def run(input_directory: Path, output_directory: Path, force: bool = False) -> d
             parser=configuration["parser"].upper(),
             teams=teams,
             warnings=warnings,
+            problems=problems,
         ))
         manifest["contests"][key] = {
             **signature,

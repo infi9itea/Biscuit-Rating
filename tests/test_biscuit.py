@@ -5,10 +5,10 @@ from pathlib import Path
 
 import pytest
 
-from iupc.cli import main
-from iupc.maintenance import add_contest, unresolved_institutions
-from iupc.pipeline import STAGES, mermaid, stale_stages, update
-from iupc.validate import validate
+from biscuit.cli import main
+from biscuit.maintenance import add_contest, unresolved_institutions
+from biscuit.pipeline import STAGES, mermaid, stale_stages, update
+from biscuit.validate import validate
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -19,7 +19,10 @@ DATA = [
     "rating_calculator",
     "institution_finder",
     "contests",
-    "iupc",
+    "members",
+    "codeforces",
+    "contestant_rating",
+    "biscuit",
 ]
 
 
@@ -53,7 +56,7 @@ def test_institution_change_reruns_only_what_it_affects():
         root = Path(directory)
         copy_repository(root)
         assert stale_stages(root) == []
-        downstream = ["performance_calculator", "score_calculator", "rating_calculator"]
+        downstream = ["performance_calculator", "score_calculator", "rating_calculator", "contestant_rating"]
 
         # A name no team uses leaves the performances unchanged, so the
         # stages after it are not rerun.
@@ -96,7 +99,7 @@ def test_add_contest_registers_parser_input_and_credit():
         (root / "rating_calculator/input/credits.json").write_text("{}")
         pages = [root / "page1.html", root / "page2.html"]
         for page in pages:
-            page.write_text("<table></table>")
+            page.write_text("<!-- saved from url=(0036)https://toph.co/c/test/standings -->\n<table></table>")
         add_contest(root, pages, "Test Contest", "2026-06-01", "toph", 1.5)
         contest = json.loads((root / "parser/input/contests.json").read_text())["contests"][0]
         assert contest == {
@@ -104,6 +107,7 @@ def test_add_contest_registers_parser_input_and_credit():
             "filenames": ["page1.html", "page2.html"],
             "parser": "TOPH",
             "date": "2026-06-01",
+            "standings": "https://toph.co/c/test/standings",
         }
         assert json.loads((root / "rating_calculator/input/credits.json").read_text()) == {"TEST CONTEST": 1.5}
         assert (root / "parser/input/contest_files/page2.html").exists()

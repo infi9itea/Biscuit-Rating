@@ -4,6 +4,7 @@ from datetime import date
 from pathlib import Path
 
 import institution_finder
+import members
 from parser import get_parser
 
 
@@ -12,6 +13,7 @@ def validate(root: Path) -> list[str]:
     return [
         *_validate_contests(root),
         *institution_finder.validate(root / "institution_finder/data/institutions.json"),
+        *members.validate(root / "members/data/members.csv", root / "parser/output"),
     ]
 
 
@@ -41,6 +43,8 @@ def _validate_contests(root: Path) -> list[str]:
             errors.append(f"Contest {name}: {error}")
         if not contest.get("filenames"):
             errors.append(f"Contest {name} has no standings files.")
+        if contest.get("standings") and not contest["standings"].startswith("https://"):
+            errors.append(f"Contest {name} has a standings link that is not an https:// address: {contest['standings']}")
         for filename in contest.get("filenames", []):
             referenced.add(filename)
             if not (source_directory / filename).is_file():

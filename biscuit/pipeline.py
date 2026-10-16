@@ -6,6 +6,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
 
+import contestant_rating
+import members
 import parser
 import performance_calculator
 import rating_calculator
@@ -14,7 +16,9 @@ import score_calculator
 from .validate import validate
 
 INSTITUTIONS = "institution_finder/data/institutions.json"
-STATE_PATH = Path("iupc/state.json")
+MEMBERS = "members/data/members.csv"
+CODEFORCES_CACHE = "codeforces/data/users.json"
+STATE_PATH = Path("biscuit/state.json")
 
 
 @dataclass(frozen=True)
@@ -94,6 +98,31 @@ STAGES = (
             root / "rating_calculator/output",
         ),
     ),
+    Stage(
+        name="contestant_rating",
+        dependencies=("parser", "performance_calculator"),
+        inputs=(
+            "contestant_rating/*.py",
+            "contestant_rating/input/*.json",
+            MEMBERS,
+            "members/*.py",
+            CODEFORCES_CACHE,
+            "performance_calculator/output/*.csv",
+            CONTESTS,
+            CONTESTS_CODE,
+            "rating_calculator/calculators.py",
+            "rating_calculator/input/*.json",
+        ),
+        outputs=("contestant_rating/output/*.csv",),
+        run=lambda root: contestant_rating.run(
+            root / "contestant_rating/input",
+            root / MEMBERS,
+            root / "performance_calculator/output",
+            root / "parser/output",
+            root / "rating_calculator/input",
+            root / "contestant_rating/output",
+        ),
+    ),
 )
 
 
@@ -157,6 +186,7 @@ def mermaid() -> str:
         "flowchart TD",
         '    contest_data[("contest data")]',
         '    institutions[("institutions.json")]',
+        '    members[("members.csv")]',
         "    parser --> contest_data",
     ]
     for stage in STAGES[1:]:
@@ -165,9 +195,13 @@ def mermaid() -> str:
             lines.append(f"    {source} --> {stage.name}")
         if INSTITUTIONS in stage.inputs:
             lines.append(f"    institutions --> {stage.name}")
+        if MEMBERS in stage.inputs:
+            lines.append(f"    members --> {stage.name}")
     lines += [
         "    rating_calculator -. ratings .-> slot_distributor",
         "    contest_data -. participation .-> slot_distributor",
         "    institutions -.-> slot_distributor",
+        "    contestant_rating -. contestant ratings .-> website",
+        "    rating_calculator -. institution ratings .-> website",
     ]
     return "\n".join(lines)
