@@ -53,7 +53,7 @@
   for (const button of shell.querySelectorAll("[data-back]")) button.addEventListener("click", () => goTo(Number(button.dataset.back)));
 
   // ---------- Step 1: name, handle, institution ----------
-  for (const institution of data.institutions) $("institution").append(element("option", { value: institution.id, text: institution.name }));
+  for (const institution of data.institutions) $("institution").append(element("option", { value: institution.id, text: institution.name, "data-search": institution.search }));
   const resetCheck = () => { person = null; $("profile-check").hidden = true; $("to-step2").hidden = true; $("check").hidden = false; };
   $("handle").addEventListener("input", resetCheck);
 

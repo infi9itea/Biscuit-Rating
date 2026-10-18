@@ -20,8 +20,8 @@ class Membership:
 
 
 def is_missing(value: str) -> bool:
-    """Empty cells and NULL both mean the handle was not provided."""
-    return not value or value.upper() == "NULL"
+    """An empty cell means the handle was not provided."""
+    return not value.strip()
 
 
 def _member_columns(frame: pd.DataFrame) -> list[str]:
@@ -35,7 +35,7 @@ def _read(path: Path) -> pd.DataFrame:
 
 
 def load_members(path: Path) -> list[Membership]:
-    """One membership per listed handle. Empty and NULL handle cells are skipped."""
+    """One membership per listed handle. Empty handle cells are skipped."""
     frame = _read(path)
     return [
         Membership(row[column], row["contest"].upper(), row["team_name"], row["institution"])

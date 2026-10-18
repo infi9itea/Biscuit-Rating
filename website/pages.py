@@ -10,7 +10,7 @@ from .chart import rating_chart
 from contests.store import contest_id
 
 from .institutions import institution_key
-from .theme import codeforces_class, institution_name, tier_class
+from .theme import codeforces_class, institution_name, institution_search_text, tier_class
 
 TITLE = "Biscuit Rating"
 def _biscuit() -> str:
@@ -204,7 +204,7 @@ def rankings_page(people: list[dict], stats: dict, legend: str) -> str:
         else:
             title = f'<span class="person-name">{handle}</span>'
             handle_line = f'<span class="sub">{institution}</span>'
-        search = " ".join([name, person["handle"], person["institution"]]).lower()
+        search = " ".join([name, person["handle"], institution_search_text(person["institution"])]).lower()
         best = best_finish(person["history"])
         finish = ordinal(best["rank"]) if best else '<span class="muted">—</span>'
         rows.append(f"""<tr data-search="{escape(search)}" data-institution="{escape(person['institution'])}">
@@ -215,7 +215,10 @@ def rankings_page(people: list[dict], stats: dict, legend: str) -> str:
   <td class="num hide-small">{finish}</td>
   <td class="num hide-small">{person['contests']}</td>
 </tr>""")
-    options = "".join(f'<option value="{escape(i)}">{escape(institution_name(i))}</option>' for i in institutions)
+    options = "".join(
+        f'<option value="{escape(i)}" data-search="{escape(institution_search_text(i))}">{escape(institution_name(i))}</option>'
+        for i in institutions
+    )
     contests = "".join(
         f'<li><span>{escape(name)}{f" <span class=credit>×{credit:g}</span>" if credit != 1 else ""}</span>'
         f'<span class="muted">{day:%b %Y}</span></li>'
@@ -231,7 +234,7 @@ def rankings_page(people: list[dict], stats: dict, legend: str) -> str:
     finder = f"""<label class="field"><span>Name, handle, or institution</span>
   <input id="search" type="search" placeholder="Search" autocomplete="off"></label>
 <label class="field"><span>Institution</span>
-  <select id="institution"><option value="">All institutions</option>{options}</select></label>"""
+  <select id="institution" data-combobox><option value="">All institutions</option>{options}</select></label>"""
     body = f"""{hero(stats, "contestants")}
 <div class="columns">
   <div class="main-column">{panel("Contestants", table, "flush")}</div>
@@ -267,7 +270,7 @@ def institutions_page(institutions: list[dict], stats: dict, legend: str) -> str
     rows = []
     for inst in institutions:
         best = best_finish(inst["history"])
-        rows.append(f"""<tr data-search="{escape(inst['name'].lower() + ' ' + institution_name(inst['name']).lower())}">
+        rows.append(f"""<tr data-search="{escape(institution_search_text(inst['name']))}">
   <td class="num muted">{inst['position']}</td>
   <td><a class="institution-name" href="i/{inst['key']}.html">{escape(institution_name(inst['name']))}</a></td>
   <td class="num rating-cell {tier_class(inst['rating'])}">{inst['rating']}</td>
@@ -332,10 +335,11 @@ def institution_page(inst: dict, total: int) -> str:
             else f'<span class="delta {"up" if change > 0 else "down" if change < 0 else ""}">{change:+d}</span>'
         )
         rank = f'{h["rank"]}<span class="muted"> / {h["teams"]}</span>' if h["rank"] is not None else '<span class="muted">unranked</span>'
+        best_members = next((e.get("members", []) for e in h["entries"] if e["team"] == h["best_team"]), [])
         rows.append(f"""<tr>
   <td class="nowrap">{contest_link(h['contest'], inst['name'], "../")}<span class="sub">{h['date']:%d %b %Y}</span></td>
   <td class="num hide-small">{h['teams_entered']}</td>
-  <td class="team">{escape(h['best_team'])}</td>
+  <td class="team">{team_label(h['best_team'], best_members, "../") if best_members else escape(h['best_team'])}</td>
   <td class="num nowrap{mark('rank', finish_key(h))}">{rank}</td>
   <td class="num hide-small{mark('score', h['score'])}"><span class="{tier_class(h['score'])}">{h['score']}</span></td>
   <td class="num nowrap{mark('rating', h['rating'])}"><strong class="{tier_class(h['rating'])}">{h['rating']}</strong></td>
@@ -517,7 +521,7 @@ def about_page(legend: str) -> str:
   <h2>Rating colours</h2>
   <div class="tier-legend">{legend}</div>
 
-  <h2>Getting listed, corrections, and opting out</h2>
+  <h2>Getting listed and corrections</h2>
   <p>Team members are provided by contestants themselves. To be listed, or to correct a mistake, fill in the <a href="form.html">Get listed</a> form. Names and photos come from public Codeforces profiles.</p>
 </article>"""
     return layout(f"About · {TITLE}", "", body, "about")
@@ -544,7 +548,7 @@ def form_page(data_url: str) -> str:
       <label class="field"><span>Codeforces handle</span>
         <input id="handle" autocomplete="off" autocapitalize="off" spellcheck="false" required></label>
       <label class="field"><span>Institution</span>
-        <select id="institution" required><option value="">Choose your institution</option></select></label>
+        <select id="institution" data-combobox required><option value="">Choose your institution</option></select></label>
       <div class="profile-check" id="profile-check" hidden></div>
       <p class="form-error" id="step1-error" role="alert" hidden></p>
       <div class="form-actions">

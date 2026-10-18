@@ -1,5 +1,11 @@
 """Rating tiers and Codeforces rank colours shared by the site's pages."""
 
+import json
+from functools import cache
+from pathlib import Path
+
+INSTITUTIONS = Path(__file__).resolve().parents[1] / "institution_finder/data/institutions.json"
+
 # Codeforces' rating colours, with adjacent ranks of the same colour combined:
 # newbie, pupil, specialist, expert, candidate master, master and international
 # master (orange), grandmaster and international grandmaster (red), and legendary
@@ -30,6 +36,18 @@ def institution_name(name: str) -> str:
         word.lower() if i and word.lower() in SMALL_WORDS else word
         for i, word in enumerate(words)
     )
+
+
+@cache
+def _alt_names() -> dict[str, list[str]]:
+    data = json.loads(INSTITUTIONS.read_text()) if INSTITUTIONS.is_file() else {"institutions": []}
+    return {institution["name"]: institution.get("alt_names", []) for institution in data["institutions"]}
+
+
+def institution_search_text(name: str) -> str:
+    """An institution's name, display name, and alternate names (such as "... (BUET)"), lower case,
+    so searches match any of them."""
+    return " ".join([name, institution_name(name), *_alt_names().get(name, [])]).lower()
 
 
 def tier(rating: float | None) -> int:

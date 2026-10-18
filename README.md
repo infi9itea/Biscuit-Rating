@@ -133,9 +133,9 @@ ICPC 2025,UNIVERSITY OF DHAKA,DU_Team,handle_a,handle_b,
 ```
 
 `contest`, `institution` and `team_name` must match the parsed standings;
-`biscuit update` checks every row and suggests close team names. A `NULL` member
+`biscuit update` checks every row and suggests close team names. An empty member
 cell means the handle was not provided; people without a Codeforces handle are
-left out. `biscuit complete-members` adds a `NULL` row for every team that has no
+left out. `biscuit complete-members` adds an empty row for every team that has no
 row yet and sorts the file by institution, contest date, and team name, so a
 new contest's teams are ready to fill in.
 

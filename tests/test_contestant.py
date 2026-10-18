@@ -154,9 +154,9 @@ def test_complete_members_adds_null_rows_and_sorts():
         added = complete_members(path, CONTESTS, ROOT / "institution_finder/data/institutions.json")
         frame = pd.read_csv(path, dtype=str, keep_default_na=False)
         assert added == len(frame) - 1 > 100
-        # The existing team keeps its handle; its empty cells and every new team's cells are NULL.
+        # The existing team keeps its handle; its empty cells and every new team's cells stay empty.
         row = frame[(frame.contest == "MU 2025") & (frame.team_name == winner.name)].iloc[0]
-        assert [row.member1, row.member2, row.member3] == ["solo", "NULL", "NULL"]
+        assert [row.member1, row.member2, row.member3] == ["solo", "", ""]
         assert [m.handle for m in load_members(path)] == ["solo"]
         assert validate(path, CONTESTS) == []
         assert frame["institution"].tolist() == sorted(frame["institution"])
@@ -179,12 +179,12 @@ def test_renamed_handles_are_rewritten_everywhere_in_the_members_file():
 
     with tempfile.TemporaryDirectory() as directory:
         path = write_members(Path(directory) / "members.csv", [
-            ["IUT 2026", "X", "A", "old_name", "VOLCABIT", "NULL"],
+            ["IUT 2026", "X", "A", "old_name", "VOLCABIT", ""],
             ["SUST 2026", "X", "B", "Old_Name", "other", ""],
         ])
         assert rename_handles(path, {"old_name": "NewName", "volcabit": "VolcaBit"}) == 3
         frame = pd.read_csv(path, dtype=str, keep_default_na=False)
-        assert frame[["member1", "member2", "member3"]].values.tolist() == [["NewName", "VolcaBit", "NULL"], ["NewName", "other", ""]]
+        assert frame[["member1", "member2", "member3"]].values.tolist() == [["NewName", "VolcaBit", ""], ["NewName", "other", ""]]
         assert rename_handles(path, {}) == 0
 
 
@@ -203,9 +203,9 @@ def test_form_responses_fill_free_cells_and_report_conflicts():
         root = Path(directory)
         members = root / "members.csv"
         pd.DataFrame([
-            {"contest": "IUT 2026", "institution": "X", "team_name": "Open", "member1": "known", "member2": "NULL", "member3": "NULL"},
+            {"contest": "IUT 2026", "institution": "X", "team_name": "Open", "member1": "known", "member2": "", "member3": ""},
             {"contest": "SUST 2026", "institution": "X", "team_name": "Full", "member1": "a1", "member2": "a2", "member3": "a3"},
-            {"contest": "IUT 2026", "institution": "X", "team_name": "Other", "member1": "taken", "member2": "NULL", "member3": "NULL"},
+            {"contest": "IUT 2026", "institution": "X", "team_name": "Other", "member1": "taken", "member2": "", "member3": ""},
         ]).to_csv(members, index=False)
         teams = [
             {"contest": "IUT 2026", "team": "Open", "teammates": ["Known", "taken"]},
@@ -220,14 +220,14 @@ def test_form_responses_fill_free_cells_and_report_conflicts():
 
         changes, problems = import_form_responses(members, [responses])
         assert changes == ["IUT 2026 Open: + newbie (from New (newbie))"]
-        assert pd.read_csv(members, keep_default_na=False)["member2"].tolist()[0] == "NULL"  # not written without apply
+        assert pd.read_csv(members, keep_default_na=False)["member2"].tolist()[0] == ""  # not written without apply
         assert any("taken is already in Other" in p for p in problems)
         assert any("Full in SUST 2026 is full" in p for p in problems)
         assert any("no team 'Missing'" in p for p in problems)
 
         import_form_responses(members, [responses], apply=True)
         written = pd.read_csv(members, keep_default_na=False)
-        assert written.iloc[0][["member1", "member2", "member3"]].tolist() == ["known", "newbie", "NULL"]
+        assert written.iloc[0][["member1", "member2", "member3"]].tolist() == ["known", "newbie", ""]
         assert list(written.columns) == ["contest", "institution", "team_name", "member1", "member2", "member3"]
 
 

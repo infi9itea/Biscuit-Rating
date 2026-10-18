@@ -92,7 +92,7 @@ def _fetch_codeforces(arguments) -> None:
 def _complete_members(arguments) -> None:
     root = arguments.root
     added = complete_members(root / MEMBERS, root / "parser/output", root / DATABASE)
-    print(f"Added {added} team(s) with NULL members to {MEMBERS}.")
+    print(f"Added {added} team(s) with empty members to {MEMBERS}.")
 
 
 def _import_form(arguments) -> None:
@@ -205,7 +205,7 @@ def main(argv: list[str] | None = None) -> None:
     codeforces_command.set_defaults(handler=_fetch_codeforces)
 
     complete_command = commands.add_parser(
-        "complete-members", help="add a NULL row for every team missing from members.csv, and sort it"
+        "complete-members", help="add an empty row for every team missing from members.csv, and sort it"
     )
     complete_command.set_defaults(handler=_complete_members)
 

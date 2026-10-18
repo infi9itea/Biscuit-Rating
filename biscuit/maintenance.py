@@ -101,10 +101,10 @@ def unresolved_institutions(
 def complete_members(members_path: Path, contests_directory: Path, database_path: Path) -> int:
     """Give every team of a known institution a row in the members file.
 
-    Teams without one get a row with NULL members, to be filled in later.
-    Institutions are written with their canonical names, empty member cells
-    become NULL, and rows are sorted by institution, contest date, and team
-    name. Returns the number of rows added.
+    Teams without one get a row with empty members, to be filled in later.
+    Institutions are written with their canonical names, and rows are sorted
+    by institution, contest date, and team name. Returns the number of rows
+    added.
     """
     finder = InstitutionFinder(database_path)
     contests = load_contests(contests_directory)
@@ -123,7 +123,7 @@ def complete_members(members_path: Path, contests_directory: Path, database_path
             listed.add((contest.name, team.name))
         for column in member_columns:
             if is_missing(row[column]):
-                row[column] = "NULL"
+                row[column] = ""
         rows.append(row)
 
     added = 0
@@ -138,7 +138,7 @@ def complete_members(members_path: Path, contests_directory: Path, database_path
                 "contest": contest.name,
                 "institution": institution,
                 "team_name": team.name,
-                **{column: "NULL" for column in member_columns},
+                **{column: "" for column in member_columns},
             })
             added += 1
 

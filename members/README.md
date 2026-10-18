@@ -9,10 +9,10 @@ ICPC 2025,UNIVERSITY OF DHAKA,DU_Team,handle_a,handle_b,handle_c
 
 - `contest`, `institution` and `team_name` must match a team in the parsed
   standings. The institution only matters when two teams share a name.
-- A member cell that is `NULL` (or empty) means the handle was not provided:
+- An empty member cell means the handle was not provided:
   a team listed with one or two handles is fine, and people without a
   Codeforces handle are left out.
-- `biscuit complete-members` adds a row with `NULL` members for every team of a
+- `biscuit complete-members` adds a row with empty members for every team of a
   known institution that has none, and sorts the file by institution,
   contest date, and team name. Run it after adding a contest to get rows to
   fill in.

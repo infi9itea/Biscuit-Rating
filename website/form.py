@@ -7,7 +7,7 @@ import pandas as pd
 
 from members import is_missing
 
-from .theme import institution_name
+from .theme import institution_name, institution_search_text
 
 # The Google Form questions the page fills in, in order. Their titles become the
 # response sheet's column headers, which `biscuit import-form` reads.
@@ -27,7 +27,7 @@ def form_data(members_path: Path, contests_path: Path) -> dict:
         )
     institutions = sorted(set(frame["institution"]))
     return {
-        "institutions": [{"id": name, "name": institution_name(name)} for name in institutions],
+        "institutions": [{"id": name, "name": institution_name(name), "search": institution_search_text(name)} for name in institutions],
         # Newest first, as people remember them.
         "contests": [
             {
