@@ -1,5 +1,5 @@
 {
-  "fetched_at": "2026-10-18T09:47:32+00:00",
+  "fetched_at": "2026-10-18T10:03:16+00:00",
   "missing": [],
   "users": {
     "-..-": {
@@ -12014,6 +12014,19 @@
       "rating": 1283,
       "titlePhoto": "https://userpic.codeforces.org/4694672/title/87e7e16c35d6d7a.jpg"
     },
+    "purple_ghost": {
+      "avatar": "https://userpic.codeforces.org/851361/avatar/84a2e3a0c61e6d4f.jpg",
+      "country": "Bangladesh",
+      "firstName": "Zakir",
+      "handle": "purple_ghost",
+      "lastName": "Hossain",
+      "maxRank": "candidate master",
+      "maxRating": 1902,
+      "organization": "Shahjalal University of Science and Technology",
+      "rank": "expert",
+      "rating": 1631,
+      "titlePhoto": "https://userpic.codeforces.org/851361/title/a9d492a1aff99ac4.jpg"
+    },
     "qbitwizz": {
       "avatar": "https://userpic.codeforces.org/3910697/avatar/5e7e48c332e2d1f2.jpg",
       "country": "Bangladesh",
@@ -15914,6 +15927,19 @@
       "rating": 1646,
       "titlePhoto": "https://userpic.codeforces.org/1369000/title/5ae51980d5fffe87.jpg"
     },
+    "steinum": {
+      "avatar": "https://userpic.codeforces.org/431097/avatar/2cbfec5e58580c69.jpg",
+      "country": "Finland",
+      "firstName": "Fahim Tajwar",
+      "handle": "steinum",
+      "lastName": "Saikat",
+      "maxRank": "candidate master",
+      "maxRating": 2082,
+      "organization": "Shahjalal University of Science and Technology",
+      "rank": "candidate master",
+      "rating": 2082,
+      "titlePhoto": "https://userpic.codeforces.org/431097/title/c160c3e246c42817.jpg"
+    },
     "stranded_dev": {
       "avatar": "https://userpic.codeforces.org/4254839/avatar/d0518e9d0c7f310d.jpg",
       "country": "Bangladesh",
@@ -16238,6 +16264,19 @@
       "rank": "newbie",
       "rating": 782,
       "titlePhoto": "https://userpic.codeforces.org/4714131/title/29b75a8563b61beb.jpg"
+    },
+    "t17": {
+      "avatar": "https://userpic.codeforces.org/no-avatar.jpg",
+      "country": "Bangladesh",
+      "firstName": "Tanvir",
+      "handle": "t17",
+      "lastName": "Tareq",
+      "maxRank": "candidate master",
+      "maxRating": 1941,
+      "organization": "Shahjalal University of Science and Technology",
+      "rank": "candidate master",
+      "rating": 1941,
+      "titlePhoto": "https://userpic.codeforces.org/no-title.jpg"
     },
     "tadashi": {
       "avatar": "https://userpic.codeforces.org/no-avatar.jpg",
