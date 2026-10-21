@@ -15,7 +15,7 @@ def test_resolves_canonical_and_alternate_names():
     canonical = "BANGLADESH UNIVERSITY OF ENGINEERING AND TECHNOLOGY"
     assert finder.resolve(canonical) == canonical
     assert finder.resolve("BANGLADESH UNIVERSITY OF ENGINEERING & TECHNOLOGY") == canonical
-
+    assert finder.resolve("EWU") == "EAST WEST UNIVERSITY"
 
 def test_add_institution_and_alt_name():
     with tempfile.TemporaryDirectory() as directory:
